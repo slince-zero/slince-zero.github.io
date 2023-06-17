@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <title>顺序线性表思考-slince Blog</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="content-language" content="zh-CN" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="supported-color-schemes" content="light dark">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="author" content="slince" />
+  <meta name="description" content="顺序线性表思考"/>
+  <meta name="keywords" content="slince,数据结构"/>
+  <link rel="icon" href="/static/img/favicon.ico" />
+  <link rel="apple-touch-icon" href="/static/img/logo.png" />
+  <link rel="stylesheet" href="/static/css/common.css?t=20230617172106">
+  <link rel="stylesheet" href="/static/css/theme-dark.css?t=20230617172106">
+  <link rel="stylesheet" href="/static/css/post.css?t=20230617172106">
+  <link rel="stylesheet" href="/static/css/code-dark.css?t=20230617172106">
+  <link rel="stylesheet" href="/static/css/code-light.css?t=20230617172106">
+  <link rel="prefetch" href="/static/xml/search.xml?t=20230617172106">
+  <link rel="prefetch" href="/static/js/search.js?t=20230617172106">
+  <script>
+    window.blog = {
+      baseurl:"",
+      buildAt:"20230617172106",
+      darkTheme: false,
+      setDarkTheme: function (dark) {
+        this.darkTheme = Boolean(dark);
+        document.documentElement.className = this.darkTheme ? 'dark': '';
+        document.querySelector('meta[name=theme-color]').setAttribute('content', this.darkTheme ? '#2D2E32': '#FFFFFF');
+      }
+    }
+    if (sessionStorage.darkTheme !== undefined) {
+      blog.setDarkTheme(sessionStorage.darkTheme === 'true'); // 记忆值，单个窗口内有效
+    } else {
+      blog.setDarkTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); // 跟随系统
+    }
+    if (window.matchMedia) {
+      var media = window.matchMedia('(prefers-color-scheme: dark)');
+      media.addListener(function (ev) {
+        blog.setDarkTheme(ev.currentTarget.matches);
+        sessionStorage.removeItem('darkTheme');
+      });
+    }
+  </script>
+</head>
+<body ondragstart="return false;">
+<header class="header">
+  <img class="logo" src="/static/img/logo.jpg" alt="logo"/>
+  <nav class="menu">
+    <a href="/"  class="hover-underline">首页</a>
+    <a href="/pages/categories.html"  class="hover-underline">归类</a>
+    <a href="/pages/search.html"  class="hover-underline">搜索</a>
+    <a href="/pages/links.html"  class="hover-underline">友链</a>
+    <a href="/pages/chat.html"  class="hover-underline">留言</a>
+    <a href="/pages/about.html"  class="hover-underline">关于</a>
+    </nav>
+</header>
+<div class="page page-post">
+  <h1 class="title" id="顺序线性表思考">顺序线性表思考</h1>
+  
+  <div class="subtitle">slince 于 2022-07-18 发布</div>
+  
+  <div class="post">
+    <p>首先看顺序表的定义：</p>
+
+<blockquote>
+  <p>一组地址连续的<strong>存储</strong>单元，顺序存储线性表中的<strong>数据</strong>单元，使得<strong>逻辑</strong>上两个相邻的元素在<strong>物理位置</strong>上也相邻。</p>
+</blockquote>
+
+<p>这里就有一个疑问了，数组和顺序表又有什么关系？</p>
+
+<ol>
+  <li>顺序表在计算机内以数组形式保存。</li>
+  <li>线性表是从逻辑角度来看待的，它除了首和尾，其他每一个元素都有一个前驱和后继元素。</li>
+  <li>数组则是从物理贮存角度来看待的，不仅顺序表可以用数组来存储，队列和栈也可以。</li>
+  <li>顺序表和数组都是数据结构，只是描述角度不同，不过数组是一个更大的概念。</li>
+</ol>
+
+<p>接下来，我们看代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typedef struct {
+int data[MaxSize];
+int length;
+} SqList;
+//初始化线性表
+void InitList(SqList &amp;L){
+    for (int i = 0; i &lt; MaxSize; ++i) {
+        L.data[i] =0;
+    }
+    L.length=0;  //空表
+}
+</code></pre></div></div>
+
+<p>因为我要执行插入和删除操作，所以我先定义了一个空表，但随后我执行插入和删除操作的时候，却一直失败，我反复检查插入和删除代码，发现并无问题。</p>
+
+<p>经过一番思考查找之后，我发现问题出在 L.length = 0上面，是的，我建立了一个空表，我在表里面添加数据的时候，并没有对L.length进行++操作。所以使得我的输出结果始终得不到我想要的。</p>
+
+<p>好在，最后解决！</p>
+
+<p>附上完整代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include "stdio.h"
+#include "stdlib.h"
+#define MaxSize 10
+
+typedef struct {
+    int data[MaxSize];
+    int length;
+} SqList;
+//初始化线性表
+void InitList(SqList &amp;L){
+    for (int i = 0; i &lt; MaxSize; ++i) {
+        L.data[i] =0;
+    }
+    L.length=9;    //这里初始化应该为0才对，由于为了数据测试方便，因此设为9
+}
+
+//插入操作
+bool ListInsert (SqList &amp;L, int i, int e){
+    if (i &lt; 1 || i &gt; L.length) {                //判断i的范围是否正确
+        return false;
+    }
+    if (L.length &gt;= MaxSize) {                  //判断空间是否已满
+        return false;
+    }
+    for (int j = L.length; j &gt;= i; j--) {       //讲第i个元素及之后元素后移
+        L.data[j] = L.data[j-1];
+    }
+    L.data[i-1] = e;                            //讲元素e赋给第i-1（数组下标从0开始）个位置
+    L.length++;
+    return true;
+}
+
+//删除操作
+bool ListDelete(SqList &amp;L, int i, int &amp;e){
+    if(i&lt;1||i&gt;L.length){
+        return false;
+    }
+    e=L.data[i-1];                  //将被删除元素赋给e
+    for (int j = i; j &lt; L.length; j++) {
+        L.data[j-1]=L.data[j];      //将第i个位置之后的元素前移
+    }
+    L.length--;
+    return true;
+
+}
+
+
+int main(){
+    printf("hello world\n");
+    SqList L;
+    //初始化
+    InitList(L);
+    for(int i =0; i&lt;MaxSize;i++){
+        printf("data[%d]=%d\n",i,L.data[i]);
+    }
+    for (int i = 0; i &lt; 8; ++i) {
+        L.data[i] = i;
+//        L.length++;
+        printf("data[%d]=%d\n",i,L.data[i]);
+    }
+    printf("******************************\n");
+    printf("L.leng=%d\n",L.length);
+
+//插入
+bool flagIn = ListInsert(L,2,33);
+printf("flag:%d\n",flagIn);
+for(int i =0; i&lt;MaxSize;i++){
+    printf("data[%d]=%d\n",i,L.data[i]);
+}
+printf("******************************\n");
+
+//删除
+int e = -1;
+bool flagDel = ListDelete(L,2,e);
+printf("falg:%d\n",flagDel);
+for(int i =0; i&lt;MaxSize;i++){
+    printf("data[%d]=%d\n",i,L.data[i]);
+}
+printf("删除的元素是%d\n",e);
+printf("******************************\n");
+return 0; }
+</code></pre></div></div>
+
+  </div>
+  
+</div>
+<footer class="footer">
+  <span>Copyright © 2022 皖ICP备16016174号</span>
+  <a href="/static/xml/rss.xml">RSS订阅</a>
+  <span>Theme By</span>
+  <a href="https://github.com/TMaize/tmaize-blog">TMaize</a>
+</footer>
+<div id="to-top">
+  <span></span>
+  <span></span>
+</div>
+<script type="text/javascript" src="/static/js/blog.js?t=20230617172106"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20230617172106"></script>
+
+</body>
+</html>

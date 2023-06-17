@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>slince Blog</title>
+    <link>https://slince-zero.github.io</link>
+    <description>slince的个人博客</description>
+    <language>zh-CN</language>
+    <pubDate>Sat, 17 Jun 2023 17:21:06 +0800</pubDate>
+    <lastBuildDate>Sat, 17 Jun 2023 17:21:06 +0800</lastBuildDate>
+    <generator>Jekyll v3.8.5</generator>
+    <atom:link href="https://slince-zero.github.io/static/xml/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>计算机网络</title>
+      <link>https://slince-zero.github.io/posts/2023/06/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.html</link>
+      <description>第一章计算机网络体系结构相关概述计算机网络已经由一种通信基础设施发展成为一种重要的信息服务基础设施1网络、互联（连）网和因特网网路（Network）由若干结点（Node）和连接这些节点的链路（Link）组成。多个网络还可以通过路由器互...</description>
+      <pubDate>Sat, 17 Jun 2023 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2023/06/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.html</gui>
+    </item>
+    <item>
+      <title>2022总结</title>
+      <link>https://slince-zero.github.io/posts/2022/12/29/2022%E6%80%BB%E7%BB%93.html</link>
+      <description>距离2022年结束还有两天，回想这一年，真的是发生了太多的事情，今年真的可以用“魔幻”和“仓促”这两个词来形容。这一年所发生的所有的高兴和不开心真的也只有自己能够体会，很幸运我今年活下来了。为什么这么说呢，上个月的这个时候，疫情还十分...</description>
+      <pubDate>Thu, 29 Dec 2022 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2022/12/29/2022%E6%80%BB%E7%BB%93.html</gui>
+    </item>
+    <item>
+      <title>奈飞教程</title>
+      <link>https://slince-zero.github.io/posts/2022/11/28/%E5%A5%88%E9%A3%9E%E6%95%99%E7%A8%8B.html</link>
+      <description>第一步购买节点通过这个网站进行注册，购买节点https://mojie.info/#/register?code=1H9faK7U也就是可以用来fq的流量。第二步下载fq软件https://ghproxy.com/https://gi...</description>
+      <pubDate>Mon, 28 Nov 2022 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2022/11/28/%E5%A5%88%E9%A3%9E%E6%95%99%E7%A8%8B.html</gui>
+    </item>
+    <item>
+      <title>好久不见</title>
+      <link>https://slince-zero.github.io/posts/2022/08/14/%E5%A5%BD%E4%B9%85%E4%B8%8D%E8%A7%81.html</link>
+      <description>今天是很有意思的一天，我如约而至来到北京会见了两个好朋友A和B，还有A的对象C。这次地行程如果用一个词来形容的话，那就是神奇！上午的时候，我先是和好朋友B碰面，我俩相约一起去国家博物馆，有意思的地方来了，我反应了半天才看到她，感觉自己...</description>
+      <pubDate>Sun, 14 Aug 2022 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2022/08/14/%E5%A5%BD%E4%B9%85%E4%B8%8D%E8%A7%81.html</gui>
+    </item>
+    <item>
+      <title>旷野寻址</title>
+      <link>https://slince-zero.github.io/posts/2022/07/31/%E6%97%B7%E9%87%8E%E5%AF%BB%E5%9D%80.html</link>
+      <description>这几天睡觉做了一个很奇怪的梦，以前做个梦，基本第二天就忘记了，可这次做的梦不仅仅真实，而且为什么会有种要发生的感觉呢？我不明白这种感觉，于是把这个不长的故事记录下来……当我醒来的时候，深处一片一望无际的旷野之中，周围全是生长着一种不知...</description>
+      <pubDate>Sun, 31 Jul 2022 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2022/07/31/%E6%97%B7%E9%87%8E%E5%AF%BB%E5%9D%80.html</gui>
+    </item>
+    <item>
+      <title>顺序线性表思考</title>
+      <link>https://slince-zero.github.io/posts/2022/07/18/%E9%A1%BA%E5%BA%8F%E7%BA%BF%E6%80%A7%E8%A1%A8%E6%80%9D%E8%80%83.html</link>
+      <description>首先看顺序表的定义：一组地址连续的存储单元，顺序存储线性表中的数据单元，使得逻辑上两个相邻的元素在物理位置上也相邻。这里就有一个疑问了，数组和顺序表又有什么关系？顺序表在计算机内以数组形式保存。线性表是从逻辑角度来看待的，它除了首和尾...</description>
+      <pubDate>Mon, 18 Jul 2022 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2022/07/18/%E9%A1%BA%E5%BA%8F%E7%BA%BF%E6%80%A7%E8%A1%A8%E6%80%9D%E8%80%83.html</gui>
+    </item>
+    <item>
+      <title>天空之城</title>
+      <link>https://slince-zero.github.io/posts/2022/06/27/%E5%A4%A9%E7%A9%BA%E4%B9%8B%E5%9F%8E.html</link>
+      <description>前几日，偶然看到「意难平」三个字，它是在一个小说推荐视频中反复出现的弹幕，我不禁感慨道，截止到现在为止，又有多少能被我认为意难平的往事呢。视频中排在首位的是一本叫做《我的26岁房客》的书，看到书名的第一眼，很难联想到它怎会跟「意难平」...</description>
+      <pubDate>Mon, 27 Jun 2022 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2022/06/27/%E5%A4%A9%E7%A9%BA%E4%B9%8B%E5%9F%8E.html</gui>
+    </item>
+    <item>
+      <title>古都洛阳</title>
+      <link>https://slince-zero.github.io/posts/2022/06/20/%E5%8F%A4%E9%83%BD%E6%B4%9B%E9%98%B3.html</link>
+      <description>古都洛阳2022年6月14号凌晨，廊坊的行程码终于不带星星了，终于，这座城市变成低风险地区了，这也就意味着，之前计划好久洛阳的旅途可以开始了。出发前一天的傍晚6月15号上午十点多我坐上了去往洛阳的列车，时隔多年，第一次坐这么久的火车，...</description>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2022/06/20/%E5%8F%A4%E9%83%BD%E6%B4%9B%E9%98%B3.html</gui>
+    </item>
+    <item>
+      <title>主题预览</title>
+      <link>https://slince-zero.github.io/posts/2022/06/14/%E4%B8%BB%E9%A2%98%E9%A2%84%E8%A7%88.html</link>
+      <description>标题这里是h1这里是h2这里是h3这里是h4这里是h5这里是h6#这里是h1##这里是h2###这里是h3####这里是h4#####这里是h5######这里是h6段落段落一段落一段落一段落一段落一段落一段落一段落一段落一段落一段落...</description>
+      <pubDate>Tue, 14 Jun 2022 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2022/06/14/%E4%B8%BB%E9%A2%98%E9%A2%84%E8%A7%88.html</gui>
+    </item>
+  </channel>
+</rss>
