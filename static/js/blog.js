@@ -3,7 +3,7 @@
   var style1 = 'background:#4BB596;color:#ffffff;border-radius: 2px;'
   var style2 = 'color:auto;'
   var author = ' Slince'
-  var github = ' https://slince-zero.github.io'
+  var github = ' https://github.com/slince-zero'
   var build = ' ' + blog.buildAt.substr(0, 4)
   build += '/' + blog.buildAt.substr(4, 2)
   build += '/' + blog.buildAt.substr(6, 2)
