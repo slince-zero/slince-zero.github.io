@@ -5,7 +5,7 @@ title: slince Blog
 description: slince的个人博客
 keywords: slince,Blog,Java,Html,JavaScript
 author: slince
-footerText: 'Copyright © 2022 皖ICP备16016174号'
+footerText: ''
 
 # 这些不要动
 permalink: /posts/:year/:month/:day/:title.html
