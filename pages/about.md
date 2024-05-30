@@ -11,6 +11,8 @@ title: 关于我
 
 ## 联系我
 
-- QQ&nbsp;&nbsp;&nbsp;&nbsp;: 1711257704
+- QQ: 1711257704
 
 - GitHub: [https://github.com/slince-zero](https://github.com/slince-zero)
+
+- 邮箱: slince1030@gmail.com
