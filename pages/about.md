@@ -11,7 +11,7 @@ title: 关于我
 
 ## 联系我
 
-- QQ: 1711257704
+- WeChat: slince0
 
 - GitHub: [https://github.com/slince-zero](https://github.com/slince-zero)
 
