@@ -1,0 +1,65 @@
+<!-- Utterances 评论组件 -->
+<script
+  src="https://utteranc.es/client.js"
+  repo="slince-zero/slince-zero.github.io"
+  issue-term="pathname"
+  theme="github-light"
+  crossorigin="anonymous"
+  async></script>
+
+<script>
+  function getCurrentTheme() {
+    return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+  }
+
+  const utterancesTheme = (theme) => {
+    if (theme === 'dark') {
+      return 'github-dark'
+    }
+    return 'github-light'
+  }
+
+  // 设置评论主题
+  const setUtterancesTheme = () => {
+    const theme = getCurrentTheme()
+    const message = {
+      type: 'set-theme',
+      theme: utterancesTheme(theme)
+    }
+    const iframe = document.querySelector('.utterances-frame')
+    if (iframe) {
+      iframe.contentWindow.postMessage(message, 'https://utteranc.es')
+    }
+  }
+
+  // 监听主题变化
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'class') {
+        setUtterancesTheme()
+      }
+    })
+  })
+
+  // 开始观察 html 元素的 class 变化
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  })
+
+  // 等待 iframe 加载完成后初始化主题
+  const initTheme = () => {
+    const checkIframe = setInterval(() => {
+      const iframe = document.querySelector('.utterances-frame')
+      if (iframe) {
+        clearInterval(checkIframe)
+        setUtterancesTheme()
+      }
+    }, 300)
+    // 5秒后停止检查，避免无限循环
+    setTimeout(() => clearInterval(checkIframe), 5000)
+  }
+
+  // 页面加载完成后初始化
+  window.addEventListener('load', initTheme)
+</script>

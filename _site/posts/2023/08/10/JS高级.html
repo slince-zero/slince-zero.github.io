@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <title>JS高级-slince Blog</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="content-language" content="zh-CN" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="supported-color-schemes" content="light dark">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="author" content="slince" />
+  <meta name="description" content="JS高级"/>
+  <meta name="keywords" content="slince,教程"/>
+  <link rel="icon" href="/static/img/favicon.ico" />
+  <link rel="apple-touch-icon" href="/static/img/logo.png" />
+  <link rel="stylesheet" href="/static/css/common.css?t=20250103105203">
+  <link rel="stylesheet" href="/static/css/theme-dark.css?t=20250103105203">
+  <link rel="stylesheet" href="/static/css/post.css?t=20250103105203">
+  <link rel="stylesheet" href="/static/css/code-dark.css?t=20250103105203">
+  <link rel="stylesheet" href="/static/css/code-light.css?t=20250103105203">
+  <link rel="prefetch" href="/static/xml/search.xml?t=20250103105203">
+  <link rel="prefetch" href="/static/js/search.js?t=20250103105203">
+  <script>
+    window.blog = {
+      baseurl:"",
+      buildAt:"20250103105203",
+      darkTheme: false,
+      setDarkTheme: function (dark) {
+        this.darkTheme = Boolean(dark);
+        document.documentElement.className = this.darkTheme ? 'dark': '';
+        document.querySelector('meta[name=theme-color]').setAttribute('content', this.darkTheme ? '#2D2E32': '#FFFFFF');
+      }
+    }
+    if (sessionStorage.darkTheme !== undefined) {
+      blog.setDarkTheme(sessionStorage.darkTheme === 'true'); // 记忆值，单个窗口内有效
+    } else {
+      blog.setDarkTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); // 跟随系统
+    }
+    if (window.matchMedia) {
+      var media = window.matchMedia('(prefers-color-scheme: dark)');
+      media.addListener(function (ev) {
+        blog.setDarkTheme(ev.currentTarget.matches);
+        sessionStorage.removeItem('darkTheme');
+      });
+    }
+  </script>
+</head>
+<body ondragstart="return false;">
+<header class="header">
+  <img class="logo" src="/static/img/logo.jpg" alt="logo"/>
+  <nav class="menu">
+    <a href="/"  class="hover-underline">首页</a>
+    <a href="/pages/categories.html"  class="hover-underline">归类</a>
+    <a href="/pages/search.html"  class="hover-underline">搜索</a>
+    <a href="/pages/links.html"  class="hover-underline">友链</a>
+    <a href="/pages/chat.html"  class="hover-underline">留言</a>
+    <a href="/pages/about.html"  class="hover-underline">关于</a>
+    </nav>
+</header>
+<div class="page page-post">
+  <h1 class="title" id="JS高级">JS高级</h1>
+  
+  <div class="subtitle">slince 于 2023-08-10 发布</div>
+  
+  <div class="post">
+    <h3 id="闭包-closure">闭包 closure</h3>
+
+<p>概念：一个函数对周围状态的引用捆绑在一起，内层函数中访问到其外层函数的作用域</p>
+
+<p>简单理解： <strong>闭包</strong> = <strong>内层函数 + 外层函数的变量</strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">outer</span><span class="p">(){</span>
+	<span class="kd">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span>
+	<span class="kd">function</span> <span class="nf">f</span><span class="p">(){</span>
+	<span class="c1">// 内层函数用到了外面的变量a</span>
+	<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nf">f</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="nf">outer</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 常见的闭包格式，外部可以访问使用 函数内部的变量</span>
+<span class="kd">function</span> <span class="nf">outer</span><span class="p">(){</span>
+	<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">100</span>
+	<span class="kd">function</span> <span class="nf">fn</span><span class="p">(){</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">fn</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>闭包应用：实现数据的私有</p>
+
+<p>例如，做一个函数统计，调用次数，函数每调用一次，++</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="kd">function</span> <span class="nf">fun</span><span class="p">(){</span>
+	<span class="nx">count</span> <span class="o">++</span>
+	<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`函数被调用了</span><span class="p">${</span><span class="nx">count</span><span class="p">}</span><span class="s2">次`</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">// 存在一个问题，就是 i 全局变量，很容易被修改</span>
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">fn</span><span class="p">(){</span>
+	<span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">1</span>
+	<span class="kd">function</span> <span class="nf">fun</span><span class="p">(){</span>
+		<span class="nx">count</span> <span class="o">++</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`函数被调用了</span><span class="p">${</span><span class="nx">count</span><span class="p">}</span><span class="s2">次`</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">fun</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nf">fn</span><span class="p">()</span>
+
+<span class="c1">// 实现了数据的私有，这样就可以有效解决问题，注意 i 并没有被js的垃圾回收机制回收，所以就存在一个内存泄漏问题</span>
+</code></pre></div></div>
+
+<h3 id="变量和函数提升">变量和函数提升</h3>
+
+<p>变量提升是JavaScript中，允许变量声明之前被访问（仅存在于var变量）</p>
+
+<p>注意：</p>
+<ol>
+  <li>变量在未声明即被访问时会报语法错误</li>
+  <li>变量在var声明之前被访问，不会报错，变量值为undefined</li>
+  <li>let/const 声明的变量不存在变量提升</li>
+  <li>变量提升出现在相同作用域中</li>
+  <li>实际开发中推荐先声明再访问变量</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">fn</span><span class="p">(){</span>
+	<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="c1">//undefined</span>
+	<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">10</span> 
+<span class="p">}</span>
+<span class="nf">fn</span><span class="p">()</span>
+
+<span class="c1">// 1. 把所有var声明的变量提升到当前作用域的最前面</span>
+<span class="c1">// 2. 只提升声明，不提升赋值</span>
+</code></pre></div></div>
+
+<h3 id="函数提升">函数提升</h3>
+
+<p>函数在声明之前即可被调用，函数提升只出现在相同作用域上</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">fun</span><span class="p">()</span>
+<span class="c1">// 声明函数</span>
+<span class="kd">function</span> <span class="nf">fun</span><span class="p">(){</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">声明之前即被调用</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">fun</span><span class="p">()</span> <span class="c1">// 错误</span>
+<span class="kd">var</span> <span class="nx">fun</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+	<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">函数表达式不存在提升现象</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="函数参数">函数参数</h3>
+
+<h4 id="动态参数">动态参数</h4>
+
+<p>arguments是函数内部内置的为数组变量，它包含了调用函数时传入的所有实参</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">function </span><span class="p">(){</span>
+  <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+  <span class="p">}</span>
+	<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">sum</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nf">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="c1">// 6</span>
+<span class="nf">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="c1">// 15</span>
+
+<span class="c1">// arguments 是一个*伪数组*，只存在于函数中</span>
+<span class="c1">// arguments 的作用是动态获取函数的实参</span>
+</code></pre></div></div>
+
+<h4 id="剩余参数">剩余参数</h4>
+
+<ol>
+  <li>…是语法符号，用于获取多余的实参</li>
+  <li>是个<strong>真数组</strong></li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">fun</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span>  <span class="c1">// 1 2</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">other</span><span class="p">)</span> <span class="c1">// [3, 4, 5, 6]是个数组</span>
+<span class="p">}</span>
+<span class="nf">fun</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="展开运算符">展开运算符</h4>
+
+<p>注意与剩余参数区分，语法符号相同只是用法不同</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(...</span><span class="nx">arr1</span><span class="p">)</span> <span class="c1">// 1 2 3 4</span>
+
+<span class="c1">// 1. 求数组最大值</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(...</span><span class="nx">arr1</span><span class="p">))</span> <span class="c1">// 4</span>
+
+<span class="c1">// 2. 合并数组</span>
+<span class="kd">const</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="kd">const</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">arr1</span><span class="p">,</span> <span class="p">...</span><span class="nx">arr2</span><span class="p">]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="c1">// [1, 2, 3, 4, 7, 8, 9]</span>
+
+<span class="c1">// 展开运算符主要是 数组展开</span>
+<span class="c1">// 剩余参数 在函数内部使用</span>
+</code></pre></div></div>
+
+<h3 id="箭头函数this">箭头函数this</h3>
+
+<p><strong>箭头函数不会创建自己的this</strong> ，它只会从自己的作用域链上一层沿用this</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="c1">// Window</span>
+
+<span class="c1">// 普通函数的this</span>
+<span class="kd">function</span> <span class="nf">fun</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="c1">// Window</span>
+<span class="p">}</span>
+<span class="nf">fun</span><span class="p">()</span>
+
+<span class="c1">// 对象里面函数的this</span>
+<span class="kd">const</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">xiaoming</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">age</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="na">fun</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="c1">// {name: 'xiaoming', age: 20, fun: ƒ}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nf">fun</span><span class="p">()</span>
+
+
+<span class="c1">// 箭头函数的this</span>
+<span class="kd">const</span> <span class="nx">fun</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="c1">// Window</span>
+<span class="p">}</span>
+<span class="nf">fun</span><span class="p">()</span> 
+
+
+<span class="c1">// 对象函数中箭头函数的this</span>
+<span class="kd">const</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">xiaoming</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">age</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="na">fun</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span><span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="c1">//Window</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nf">fun</span><span class="p">()</span>
+
+
+</code></pre></div></div>
+
+<h3 id="对象解构">对象解构</h3>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">uname</span><span class="p">,</span> <span class="nx">age</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="na">uname</span><span class="p">:</span> <span class="dl">'</span><span class="s1">xiaoming</span><span class="dl">'</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">18</span> <span class="p">}</span> 
+<span class="c1">// 等价于 const = uname = obj.uname</span>
+<span class="c1">// 要求属性名和变量名一致</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">uname</span><span class="p">)</span> <span class="c1">// xiaoming</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">age</span><span class="p">)</span> <span class="c1">// 18</span>
+
+<span class="c1">// 给新的变量名赋值</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="nx">uname</span><span class="p">,</span> <span class="nx">age</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">xiaoming</span><span class="dl">'</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">18</span> <span class="p">}</span> 
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">uname</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 多级对象解构</span>
+<span class="kd">const</span> <span class="nx">per</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">小明</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">family</span><span class="p">:</span> <span class="p">{</span>
+   <span class="na">mother</span><span class="p">:</span> <span class="dl">'</span><span class="s1">小红</span><span class="dl">'</span>
+  <span class="p">}</span>
+  <span class="nl">age</span><span class="p">:</span> <span class="mi">20</span>
+<span class="p">},</span>
+<span class="kd">const</span> <span class="p">{</span><span class="nx">name</span><span class="p">,</span> <span class="na">family</span><span class="p">:{</span><span class="nx">mother</span><span class="p">}}</span> <span class="o">=</span> <span class="nx">per</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">name</span> <span class="o">+</span><span class="dl">'</span><span class="s1">---</span><span class="dl">'</span><span class="o">+</span> <span class="nx">mother</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="foreach遍历数组">forEach遍历数组</h3>
+
+<p>forEach就是遍历，加强版的for循环，它没有返回值</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">red</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">green</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">pink</span><span class="dl">'</span><span class="p">]</span>
+<span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="c1">// red green pink</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="c1">// 0 1 2</span>
+<span class="p">})</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="c1">// undefined</span>
+</code></pre></div></div>
+
+<h3 id="数组reduce累计方法">数组reduce累计方法</h3>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 无初始值</span>
+<span class="kd">const</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="kd">const</span> <span class="nx">total</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nf">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">pre</span><span class="p">,</span><span class="nx">cur</span><span class="p">){</span>
+  <span class="k">return</span> <span class="nx">pre</span> <span class="o">+</span> <span class="nx">cur</span>
+<span class="p">})</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">total</span><span class="p">)</span> <span class="c1">// 9</span>
+
+<span class="c1">// 有初始值</span>
+<span class="kd">const</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="kd">const</span> <span class="nx">total</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nf">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">pre</span><span class="p">,</span><span class="nx">cur</span><span class="p">){</span>
+  <span class="k">return</span> <span class="nx">pre</span> <span class="o">+</span> <span class="nx">cur</span>
+<span class="p">},</span><span class="mi">10</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">total</span><span class="p">)</span> <span class="c1">//19</span>
+
+<span class="c1">// 箭头函数写法</span>
+<span class="kd">const</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="kd">const</span> <span class="nx">total</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nf">reduce</span><span class="p">((</span><span class="nx">pre</span><span class="p">,</span><span class="nx">cur</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">pre</span> <span class="o">+</span> <span class="nx">cur</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">total</span><span class="p">)</span> <span class="c1">//19</span>
+</code></pre></div></div>
+
+<h3 id="原型">原型</h3>
+
+<p>主要是利用原型对象实现方法共享</p>
+
+<ul>
+  <li>构造函数通过原型分配的函数是所有对象所 <strong>共享</strong>的</li>
+  <li>JavaScript规定，<strong>每一个构造函数都有一个prototype属性</strong>，指向另一个对象，所以也称为原型对象</li>
+  <li>这个对象可以挂在函数，对象实例化不会多次创建原型上的函数，节约内存</li>
+  <li>可以把一些不变的方法，直接定义在prototype对象上，这样所有对象的实例就可以共享这些方法</li>
+  <li>构造函数和原型对象中this都指向实例化的对象</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span>
+<span class="p">}</span>
+<span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">唱歌</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="dl">'</span><span class="s1">小明</span><span class="dl">'</span><span class="p">,</span> <span class="mi">22</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="dl">'</span><span class="s1">小红</span><span class="dl">'</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">p2</span><span class="p">)</span>
+
+  <span class="c1">//  Person {name: '小明', age: 22}</span>
+  <span class="c1">//  age: 22</span>
+  <span class="c1">//  name: "小明"</span>
+  <span class="c1">//  [[Prototype]]: Object</span>
+
+  <span class="c1">//  ** sing: ƒ ()  **</span>
+  <span class="c1">//  constructor: ƒ Person(name, age)</span>
+  <span class="c1">//  [[Prototype]]: Object</span>
+  <span class="c1">//  Person {name: '小红', age: 22}</span>
+
+  <span class="c1">//  age: 22</span>
+  <span class="c1">//  name: "小红"</span>
+  <span class="c1">//  [[Prototype]]: Object</span>
+
+  <span class="c1">//  ** sing: ƒ ()  **</span>
+  <span class="c1">//  constructor: ƒ Person(name, age)</span>
+  <span class="c1">//  [[Prototype]]: Object</span>
+<span class="nx">小结</span><span class="err">：</span>
+<span class="mi">1</span><span class="p">.</span> <span class="nx">原型是一个对象</span><span class="err">，</span><span class="nx">称prototype为原型对象</span>
+<span class="mi">2</span><span class="p">.</span> <span class="nx">原型可以用来方法</span><span class="err">，</span><span class="nx">可以把那些不变的方法</span><span class="err">，</span><span class="nx">直接定义在prototype对象上</span>
+<span class="mi">3</span><span class="p">.</span> <span class="nx">构造函数和原型对象里面的this指向实例化的对象</span>
+
+<span class="kd">let</span> <span class="nx">that</span>
+<span class="kd">function</span> <span class="nf">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span> 
+  <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span>
+<span class="p">}</span>
+<span class="kd">const</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">()</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">that</span> <span class="o">===</span> <span class="nx">p</span><span class="p">)</span> <span class="c1">// true</span>
+
+</code></pre></div></div>
+
+<h4 id="constructor属性">constructor属性</h4>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
+<span class="p">}</span>
+<span class="kd">const</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="dl">'</span><span class="s1">小明</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="kd">constructor</span> <span class="o">===</span> <span class="nx">Person</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">p</span> <span class="k">instanceof</span> <span class="nx">Person</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="kd">constructor</span> <span class="o">===</span> <span class="nx">Person</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="c1">// p.constructor 指向 Person 本身</span>
+
+<span class="c1">// 原型对象中的constructr属性指向构造函数本身</span>
+</code></pre></div></div>
+
+<p>使用场景：</p>
+
+<p>如果有多个对象的方法，我们可以给原型对象采取对象形式赋值
+但是，这样就会覆盖构造函数原型对象原来的内容，这样修改后的原型对象constructor就不再指向当前构造函数了
+此时，我们可以在修改后的原型对象中，添加一个constructor指向原来的构造函数</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
+<span class="p">}</span>
+<span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+ <span class="na">sing</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span><span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">唱歌</span><span class="dl">'</span><span class="p">)},</span>
+ <span class="na">dance</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span><span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">跳舞</span><span class="dl">'</span><span class="p">)}</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constuctor</span><span class="p">)</span> <span class="c1">// 指向Object</span>
+
+
+<span class="kd">function</span> <span class="nf">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
+<span class="p">}</span>
+<span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+ <span class="na">constructor</span><span class="p">:</span> <span class="nx">Person</span><span class="p">,</span> <span class="c1">// 手动利用constructor指向Person函数本身</span>
+ <span class="na">sing</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span><span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">唱歌</span><span class="dl">'</span><span class="p">)},</span>
+ <span class="na">dance</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span><span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">跳舞</span><span class="dl">'</span><span class="p">)}</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constuctor</span><span class="p">)</span> <span class="c1">// 指向 Person</span>
+
+</code></pre></div></div>
+
+<h4 id="原型链查找规则">原型链–查找规则</h4>
+
+<ol>
+  <li>当访问一个对象的属性（方法）时，首先查找这个<strong>对象自身</strong>有没有该属性</li>
+  <li>如果没有就查找它的原型（也就是__proto__指向的prototype原型对象）</li>
+  <li>如果话没有就查找原型对象的原型（Object的原型对象）</li>
+  <li>以此类推一直找到Object为止</li>
+</ol>
+
+<h3 id="深浅拷贝">深浅拷贝</h3>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">person</span> <span class="o">=</span><span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span><span class="dl">'</span><span class="s1">小明</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">age</span><span class="p">:</span><span class="mi">18</span>
+<span class="p">}</span>
+<span class="kd">const</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">person</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="c1">// {name: '小明', age: 18}</span>
+<span class="nx">p</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="c1">// 问题出现了，我只想改变p中的age，但是person中的age也跟着改变了</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">person</span><span class="p">)</span> <span class="c1">// {name: '小明', age: 20}</span>
+</code></pre></div></div>
+
+<p>浅拷贝和深拷贝只针对引用类型
+浅拷贝：拷贝的是地址</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">小明</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">age</span><span class="p">:</span> <span class="mi">18</span>
+<span class="p">}</span>
+
+<span class="c1">// 浅拷贝-1</span>
+<span class="kd">const</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">{...</span><span class="nx">person</span><span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="c1">// {name: '小明', age: 18}</span>
+<span class="nx">p</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">person</span><span class="p">)</span> <span class="c1">// {name: '小明', age: 20}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">person</span><span class="p">)</span> <span class="c1">// {name: '小明', age: 18}</span>
+
+<span class="c1">// 浅拷贝-2</span>
+<span class="kd">const</span> <span class="nx">p2</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nf">assign</span><span class="p">(</span><span class="nx">p2</span><span class="p">,</span> <span class="nx">person</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">p2</span><span class="p">)</span> <span class="c1">// {name: '小明', age: 18}</span>
+<span class="nx">p2</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">p2</span><span class="p">)</span> <span class="c1">// {name: '小明', age: 20}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">person</span><span class="p">)</span> <span class="c1">// {name: '小明', age: 18}</span>
+
+
+<span class="kd">const</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">tom</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">age</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
+  <span class="na">family</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">wife</span><span class="p">:</span> <span class="dl">'</span><span class="s1">jerry</span><span class="dl">'</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nf">assign</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span> <span class="nx">obj</span><span class="p">)</span>
+<span class="nx">o</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="nx">o</span><span class="p">.</span><span class="nx">family</span><span class="p">.</span><span class="nx">wife</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">jerk</span><span class="dl">'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="c1">// age: 20 family: {wife: 'jerk'} name: "tom"</span>
+<span class="c1">// 问题出现了，obj中的family也跟着改变了</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="c1">// age: 20 family: {wife: 'jerk'} name: "tom"</span>
+
+<span class="nx">总结</span><span class="err">：</span>
+<span class="mi">1</span><span class="p">.</span> <span class="nx">直接赋值和浅拷贝有什么区别</span><span class="err">？</span>
+ <span class="o">*</span> <span class="nx">直接赋值的方法</span><span class="err">，</span><span class="nx">只要是对象</span><span class="err">，</span><span class="nx">都会互相影响</span><span class="err">，</span><span class="nx">因为是直接拷贝对象栈里面的地址</span>
+ <span class="o">*</span> <span class="nx">浅拷贝如果是一层对象</span><span class="err">，</span><span class="nx">不会影响</span><span class="err">，</span><span class="nx">如果出现多层</span><span class="err">，</span><span class="nx">则会互相影响</span>
+<span class="mi">2</span><span class="p">.</span> <span class="nx">浅拷贝怎么理解</span>
+ <span class="o">*</span> <span class="nx">拷贝对象之后</span><span class="err">，</span><span class="nx">里面的属性值是简单数据类型直接拷贝的值</span>
+ <span class="o">*</span> <span class="nx">如果属性值是引用数据类型</span><span class="err">，</span><span class="nx">则拷贝的是地址</span>
+
+</code></pre></div></div>
+
+<p>深拷贝：拷贝的是对象，不是地址</p>
+
+<p>常见实现深拷贝：</p>
+
+<ol>
+  <li>通过递归实现深拷贝</li>
+  <li>lodash/cloneDeep</li>
+  <li>通过JSON.stringify()实现</li>
+</ol>
+
+<p><strong>函数递归</strong>：</p>
+
+<p>如果一个函数在内部可以调用自身，这个函数就是递归函数</p>
+
+<p>但是，递归很容易发生“栈溢出”错误，所以必须要加退出条件return</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">getTime</span><span class="p">(){</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">().</span><span class="nf">toLocaleString</span><span class="p">()</span>
+  <span class="nf">setTimeout</span><span class="p">(</span><span class="nx">getTime</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nf">getTime</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="call-apply-bind">call apply bind</h3>
+
+<ul>
+  <li>
+    <p>相同点：
+都可以改变函数内部的this指向</p>
+  </li>
+  <li>区别点：
+    <ol>
+      <li>call和apply会调用函数，并且改变函数内部this指向</li>
+      <li>call和apply传递的参数不一样，apply必须传递数组形式[arg]</li>
+      <li>bind不会调用函数，可以改变函数内部的this指向</li>
+    </ol>
+  </li>
+  <li>主要应用场景：
+    <ol>
+      <li>call调用函数并且可以传递参数</li>
+      <li>apply经常跟数组有关系，比如借助于数学对象实现数组最大最小值</li>
+      <li>bind不调用函数，但是还想改变this指向，比如改变定时器内部的this指向</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="性能优化">性能优化</h3>
+
+<h4 id="防抖debounce">防抖（debounce）</h4>
+
+<p>单位时间内，频繁触发事件，<strong>只执行最后一次</strong></p>
+
+<p>使用场景：</p>
+<ul>
+  <li>搜索框搜索输入，用户最后一次输入完，再发送请求</li>
+  <li>手机号、邮箱验证输入检测</li>
+</ul>
+
+<p>当你在 JavaScript 中需要实现防抖（debounce）功能时，你可以使用以下代码作为一个示例：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">debounce</span><span class="p">(</span><span class="nx">func</span><span class="p">,</span> <span class="nx">delay</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">timerId</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">clearTimeout</span><span class="p">(</span><span class="nx">timerId</span><span class="p">);</span>
+
+    <span class="nx">timerId</span> <span class="o">=</span> <span class="nf">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">func</span><span class="p">.</span><span class="nf">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+    <span class="p">},</span> <span class="nx">delay</span><span class="p">);</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="c1">// 示例函数</span>
+<span class="kd">function</span> <span class="nf">search</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 模拟搜索操作</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Searching...</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 创建防抖函数</span>
+<span class="kd">const</span> <span class="nx">debounceSearch</span> <span class="o">=</span> <span class="nf">debounce</span><span class="p">(</span><span class="nx">search</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+
+<span class="c1">// 在输入框中绑定事件监听器</span>
+<span class="kd">const</span> <span class="nx">input</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">input</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">input</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">input</span><span class="dl">'</span><span class="p">,</span> <span class="nx">debounceSearch</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>在上面的示例中，<code class="language-plaintext highlighter-rouge">debounce</code> 函数接收两个参数：<code class="language-plaintext highlighter-rouge">func</code> 是要执行的函数，<code class="language-plaintext highlighter-rouge">delay</code> 是延迟的时间间隔。它返回一个新的函数，该函数会在指定的延迟时间内被调用。</p>
+
+<p>在示例中，我们定义了一个 <code class="language-plaintext highlighter-rouge">search</code> 函数，它模拟了搜索操作。然后，我们使用 <code class="language-plaintext highlighter-rouge">debounce</code> 函数创建了一个名为 <code class="language-plaintext highlighter-rouge">debounceSearch</code> 的防抖函数，将 <code class="language-plaintext highlighter-rouge">search</code> 函数作为参数传递给它，并设置了延迟时间为 500 毫秒。</p>
+
+<p>最后，我们使用 <code class="language-plaintext highlighter-rouge">addEventListener</code> 将 <code class="language-plaintext highlighter-rouge">debounceSearch</code> 函数绑定到输入框的 <code class="language-plaintext highlighter-rouge">input</code> 事件上。这样，当用户在输入框中输入时，防抖函数将确保在用户停止输入一段时间后才执行搜索操作，从而减少了频繁触发搜索的次数。</p>
+
+<p>``</p>
+
+<h4 id="节流throttle">节流（throttle）</h4>
+
+<p>单位时间内，频繁触发事件，只执行一次</p>
+
+<p>以下是一个基本的JavaScript节流函数的示例：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">throttle</span><span class="p">(</span><span class="nx">func</span><span class="p">,</span> <span class="nx">delay</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">timerId</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">lastExecutedTime</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">currentTime</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nf">now</span><span class="p">();</span>
+
+    <span class="k">if </span><span class="p">(</span><span class="nx">currentTime</span> <span class="o">-</span> <span class="nx">lastExecutedTime</span> <span class="o">&lt;</span> <span class="nx">delay</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nf">clearTimeout</span><span class="p">(</span><span class="nx">timerId</span><span class="p">);</span>
+      <span class="nx">timerId</span> <span class="o">=</span> <span class="nf">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">lastExecutedTime</span> <span class="o">=</span> <span class="nx">currentTime</span><span class="p">;</span>
+        <span class="nx">func</span><span class="p">.</span><span class="nf">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+      <span class="p">},</span> <span class="nx">delay</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">lastExecutedTime</span> <span class="o">=</span> <span class="nx">currentTime</span><span class="p">;</span>
+      <span class="nx">func</span><span class="p">.</span><span class="nf">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这个<code class="language-plaintext highlighter-rouge">throttle</code>函数接受两个参数：<code class="language-plaintext highlighter-rouge">func</code>是要节流的函数，<code class="language-plaintext highlighter-rouge">delay</code>是延迟的时间间隔（以毫秒为单位）。它返回一个新的函数，该函数在指定的时间间隔内最多执行一次。</p>
+
+<p>使用示例：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">handleScroll</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Scroll event</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">throttledScroll</span> <span class="o">=</span> <span class="nf">throttle</span><span class="p">(</span><span class="nx">handleScroll</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">scroll</span><span class="dl">'</span><span class="p">,</span> <span class="nx">throttledScroll</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>在上面的示例中，我们定义了一个<code class="language-plaintext highlighter-rouge">handleScroll</code>函数来处理滚动事件。然后，我们使用<code class="language-plaintext highlighter-rouge">throttle</code>函数创建了一个节流的版本<code class="language-plaintext highlighter-rouge">throttledScroll</code>，并将其绑定到<code class="language-plaintext highlighter-rouge">scroll</code>事件上。</p>
+
+<p>这样，当用户滚动页面时，<code class="language-plaintext highlighter-rouge">handleScroll</code>函数最多每200毫秒执行一次，以减少事件的触发频率。</p>
+
+
+  </div>
+  
+  <div class="comments-container">
+    <!-- Utterances 评论组件 -->
+<script
+  src="https://utteranc.es/client.js"
+  repo="slince-zero/slince-zero.github.io"
+  issue-term="pathname"
+  theme="github-light"
+  crossorigin="anonymous"
+  async></script>
+
+<script>
+  function getCurrentTheme() {
+    return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+  }
+
+  const utterancesTheme = (theme) => {
+    if (theme === 'dark') {
+      return 'github-dark'
+    }
+    return 'github-light'
+  }
+
+  // 设置评论主题
+  const setUtterancesTheme = () => {
+    const theme = getCurrentTheme()
+    const message = {
+      type: 'set-theme',
+      theme: utterancesTheme(theme)
+    }
+    const iframe = document.querySelector('.utterances-frame')
+    if (iframe) {
+      iframe.contentWindow.postMessage(message, 'https://utteranc.es')
+    }
+  }
+
+  // 监听主题变化
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'class') {
+        setUtterancesTheme()
+      }
+    })
+  })
+
+  // 开始观察 html 元素的 class 变化
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  })
+
+  // 等待 iframe 加载完成后初始化主题
+  const initTheme = () => {
+    const checkIframe = setInterval(() => {
+      const iframe = document.querySelector('.utterances-frame')
+      if (iframe) {
+        clearInterval(checkIframe)
+        setUtterancesTheme()
+      }
+    }, 300)
+    // 5秒后停止检查，避免无限循环
+    setTimeout(() => clearInterval(checkIframe), 5000)
+  }
+
+  // 页面加载完成后初始化
+  window.addEventListener('load', initTheme)
+</script>
+</div>
+</div>
+<footer
+  class="footer"
+  style="display: flex; justify-content: center; align-items: center">
+  <span></span>
+  <!-- <a href="/static/xml/rss.xml">RSS订阅</a> -->
+  <span>Theme By</span>
+  <a href="https://github.com/TMaize/tmaize-blog">TMaize</a>
+</footer>
+<div id="to-top">
+  <span></span>
+  <span></span>
+</div>
+<script type="text/javascript" src="/static/js/blog.js?t=20250103105203"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20250103105203"></script>
+
+</body>
+</html>
