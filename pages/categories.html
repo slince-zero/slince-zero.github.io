@@ -1,29 +1,73 @@
 ---
- layout: page 
- title: 文章分类 
+layout: page
+title: 归类
 ---
-
 <div class="page page-categories">
-    <div class="list-category">
-        <h2>所有分类</h2>
-        <div>
-            {%- for category in site.categories %}
-            <a href="javascript:document.getElementById('{{ category[0] }}').scrollIntoView()">{{ category[0] }}</a> {%- endfor %}
+  <div class="list-category">
+    <h2 data-i18n="categories.all">所有分类</h2>
+    <div>
+      {% for category in site.categories %}
+      <a href="#{{ category[0] }}" class="hover-underline">{{ category[0] }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {% for category in site.categories %}
+  <div class="list-post" data-category="{{ category[0] }}">
+    <h2 id="{{ category[0] }}">{{ category[0] }}</h2>
+    <ul>
+      {% for post in category[1] %}
+      <li data-lang="{{ post.lang | default: 'zh-CN' }}">
+        <span class="date">{{ post.date | date: "%Y/%m/%d" }}</span>
+        <div class="title">
+          <a href="{{ site.baseurl | append: post.url }}" class="hover-underline">{{ post.title }}</a>
         </div>
-    </div>
-    {%- for category in site.categories %}
-    <div class="list-post">
-        <h2 id="{{ category[0] }}">{{ category[0] }}</h2>
-        <ul>
-            {%- for post in category[1] %}
-            <li>
-                <span class="date">{{ post.date | date: "%Y/%m/%d" }}</span>
-                <div class="title">
-                    <a href="{{ site.baseurl | append: post.url }}" class="hover-underline">{{ post.title }}</a>
-                </div>
-            </li>
-            {%- endfor %}
-        </ul>
-    </div>
-    {%- endfor %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
 </div>
+
+<script>
+// 根据当前语言过滤文章
+function filterPostsByLanguage() {
+  const currentLang = localStorage.getItem('blog_language') || 'zh-CN';
+  const posts = document.querySelectorAll('.page-categories .list-post li');
+  let categoryVisibility = {};
+  
+  // 过滤文章
+  posts.forEach(post => {
+    const postLang = post.getAttribute('data-lang');
+    const categorySection = post.closest('.list-post');
+    const category = categorySection.getAttribute('data-category');
+    
+    if (postLang === currentLang) {
+      post.style.display = '';
+      categoryVisibility[category] = true;
+    } else {
+      post.style.display = 'none';
+    }
+  });
+  
+  // 处理分类的显示/隐藏
+  document.querySelectorAll('.page-categories .list-post').forEach(categorySection => {
+    const category = categorySection.getAttribute('data-category');
+    const hasVisiblePosts = categorySection.querySelector(`li[data-lang="${currentLang}"]`);
+    categorySection.style.display = hasVisiblePosts ? '' : 'none';
+  });
+  
+  // 更新分类链接
+  document.querySelectorAll('.list-category a').forEach(link => {
+    const category = link.getAttribute('href').substring(1);
+    link.style.display = categoryVisibility[category] ? '' : 'none';
+  });
+}
+
+// 页面加载时过滤文章
+document.addEventListener('DOMContentLoaded', filterPostsByLanguage);
+
+// 监听语言变化
+window.addEventListener('languageChanged', () => {
+  filterPostsByLanguage();
+});
+</script>

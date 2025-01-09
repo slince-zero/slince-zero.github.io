@@ -1,6 +1,7 @@
 ---
 layout: mypost
-title: 关于我
+title: 关于
+lang: zh-CN
 ---
 
 > Hello 陌生人，欢迎访问 slince Blog

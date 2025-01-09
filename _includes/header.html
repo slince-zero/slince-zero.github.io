@@ -13,7 +13,10 @@
         {% capture href %}{{ site.baseurl }}{{ menu.url }}{% endcapture %}
       {%- endunless -%}
 
-      <a href="{{href}}" {{target}} class="hover-underline">{{ menu.title }}</a>
+      <a href="{{href}}" {{target}} class="hover-underline" data-i18n="menu.{{ menu.title }}">{{ menu.title }}</a>
     {% endfor -%}
+    <a href="javascript:void(0)" onclick="toggleLanguage()" class="hover-underline language-switch">
+      <span class="lang-text">中文</span>
+    </a>
   </nav>
 </header>

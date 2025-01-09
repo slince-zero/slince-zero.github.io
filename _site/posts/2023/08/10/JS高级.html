@@ -15,17 +15,19 @@
   <meta name="keywords" content="slince,教程"/>
   <link rel="icon" href="/static/img/favicon.ico" />
   <link rel="apple-touch-icon" href="/static/img/logo.png" />
-  <link rel="stylesheet" href="/static/css/common.css?t=20250103191432">
-  <link rel="stylesheet" href="/static/css/theme-dark.css?t=20250103191432">
-  <link rel="stylesheet" href="/static/css/post.css?t=20250103191432">
-  <link rel="stylesheet" href="/static/css/code-dark.css?t=20250103191432">
-  <link rel="stylesheet" href="/static/css/code-light.css?t=20250103191432">
-  <link rel="prefetch" href="/static/xml/search.xml?t=20250103191432">
-  <link rel="prefetch" href="/static/js/search.js?t=20250103191432">
+  <link rel="stylesheet" href="/static/css/common.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/theme-dark.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/post.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/code-dark.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/code-light.css?t=20250109175448">
+  <link rel="prefetch" href="/static/xml/search.xml?t=20250109175448">
+  <link rel="prefetch" href="/static/js/search.js?t=20250109175448">
+  <script src="/static/js/translations.js?t=20250109175448" defer></script>
+  <script src="/static/js/language.js?t=20250109175448" defer></script>
   <script>
     window.blog = {
       baseurl:"",
-      buildAt:"20250103191432",
+      buildAt:"20250109175448",
       darkTheme: false,
       setDarkTheme: function (dark) {
         this.darkTheme = Boolean(dark);
@@ -51,17 +53,31 @@
 <header class="header">
   <img class="logo" src="/static/img/logo.jpg" alt="logo"/>
   <nav class="menu">
-    <a href="/"  class="hover-underline">首页</a>
-    <a href="/pages/categories.html"  class="hover-underline">归类</a>
-    <a href="/pages/search.html"  class="hover-underline">搜索</a>
-    <a href="/pages/links.html"  class="hover-underline">友链</a>
-    <a href="/pages/about.html"  class="hover-underline">关于</a>
-    </nav>
+    <a href="/"  class="hover-underline" data-i18n="menu.首页">首页</a>
+    <a href="/pages/categories.html"  class="hover-underline" data-i18n="menu.归类">归类</a>
+    <a href="/pages/search.html"  class="hover-underline" data-i18n="menu.搜索">搜索</a>
+    <a href="/pages/links.html"  class="hover-underline" data-i18n="menu.友链">友链</a>
+    <a href="/pages/about.html"  class="hover-underline" data-i18n="menu.关于">关于</a>
+    <a href="javascript:void(0)" onclick="toggleLanguage()" class="hover-underline language-switch">
+      <span class="lang-text">中文</span>
+    </a>
+  </nav>
 </header>
 <div class="page page-post">
   <h1 class="title" id="JS高级">JS高级</h1>
   
-  <div class="subtitle">slince 于 2023-08-10 发布</div>
+  <div class="subtitle">
+    <span data-i18n="post.published">发布于</span> 2023-08-10
+    
+    <span class="post-categories">
+      <span data-i18n="post.categories">分类</span>:
+      
+        <a href="/pages/categories.html#教程" class="hover-underline">教程</a>
+      
+    </span>
+    
+  </div>
+  
   
   <div class="post">
     <h3 id="闭包-closure">闭包 closure</h3>
@@ -708,8 +724,8 @@
   <span></span>
   <span></span>
 </div>
-<script type="text/javascript" src="/static/js/blog.js?t=20250103191432"></script>
-<script type="text/javascript" src="/static/js/search.js?t=20250103191432"></script>
+<script type="text/javascript" src="/static/js/blog.js?t=20250109175448"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20250109175448"></script>
 
 </body>
 </html>

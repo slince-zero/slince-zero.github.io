@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <title>关于我-slince Blog</title>
+  <title>关于-slince Blog</title>
   <meta charset="utf-8" />
   <meta http-equiv="content-language" content="zh-CN" />
   <meta name="theme-color" content="#ffffff" />
@@ -15,17 +15,19 @@
   <meta name="keywords" content="slince,Blog,Java,Html,JavaScript"/>
   <link rel="icon" href="/static/img/favicon.ico" />
   <link rel="apple-touch-icon" href="/static/img/logo.png" />
-  <link rel="stylesheet" href="/static/css/common.css?t=20250103191432">
-  <link rel="stylesheet" href="/static/css/theme-dark.css?t=20250103191432">
-  <link rel="stylesheet" href="/static/css/post.css?t=20250103191432">
-  <link rel="stylesheet" href="/static/css/code-dark.css?t=20250103191432">
-  <link rel="stylesheet" href="/static/css/code-light.css?t=20250103191432">
-  <link rel="prefetch" href="/static/xml/search.xml?t=20250103191432">
-  <link rel="prefetch" href="/static/js/search.js?t=20250103191432">
+  <link rel="stylesheet" href="/static/css/common.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/theme-dark.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/post.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/code-dark.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/code-light.css?t=20250109175448">
+  <link rel="prefetch" href="/static/xml/search.xml?t=20250109175448">
+  <link rel="prefetch" href="/static/js/search.js?t=20250109175448">
+  <script src="/static/js/translations.js?t=20250109175448" defer></script>
+  <script src="/static/js/language.js?t=20250109175448" defer></script>
   <script>
     window.blog = {
       baseurl:"",
-      buildAt:"20250103191432",
+      buildAt:"20250109175448",
       darkTheme: false,
       setDarkTheme: function (dark) {
         this.darkTheme = Boolean(dark);
@@ -51,31 +53,32 @@
 <header class="header">
   <img class="logo" src="/static/img/logo.jpg" alt="logo"/>
   <nav class="menu">
-    <a href="/"  class="hover-underline">首页</a>
-    <a href="/pages/categories.html"  class="hover-underline">归类</a>
-    <a href="/pages/search.html"  class="hover-underline">搜索</a>
-    <a href="/pages/links.html"  class="hover-underline">友链</a>
-    <a href="/pages/about.html"  class="hover-underline">关于</a>
-    </nav>
+    <a href="/"  class="hover-underline" data-i18n="menu.首页">首页</a>
+    <a href="/pages/categories.html"  class="hover-underline" data-i18n="menu.归类">归类</a>
+    <a href="/pages/search.html"  class="hover-underline" data-i18n="menu.搜索">搜索</a>
+    <a href="/pages/links.html"  class="hover-underline" data-i18n="menu.友链">友链</a>
+    <a href="/pages/about.html"  class="hover-underline" data-i18n="menu.关于">关于</a>
+    <a href="javascript:void(0)" onclick="toggleLanguage()" class="hover-underline language-switch">
+      <span class="lang-text">中文</span>
+    </a>
+  </nav>
 </header>
 <div class="page page-post">
-  <h1 class="title" id="关于我">关于我</h1>
+  <h1 class="title" id="关于">关于</h1>
+  
   
   <div class="post">
     <blockquote>
   <p>Hello 陌生人，欢迎访问 slince Blog</p>
 </blockquote>
 
-<p>该博客托管于 GitHub Page，这个博客是我用来记录一些日常和学习的地方，我的兴趣爱好是📹和🎾，欢迎添加友链，一起来玩呀。</p>
+<p>该博客托管于 GitHub Page，这个博客是我用来记录一些日常和学习的地方，我的兴趣爱好是 📹 和 🎾，欢迎添加友链，一起来玩呀。</p>
 
 <p>我个人习惯用文字来记录生活，再加上也希望通过文字来记录自己的学习旅程，因此这个网站也就应运而生。</p>
 
 <h2 id="联系我">联系我</h2>
 
 <ul>
-  <li>
-    <p>WeChat: slince0</p>
-  </li>
   <li>
     <p>GitHub: <a href="https://github.com/slince-zero">https://github.com/slince-zero</a></p>
   </li>
@@ -166,8 +169,8 @@
   <span></span>
   <span></span>
 </div>
-<script type="text/javascript" src="/static/js/blog.js?t=20250103191432"></script>
-<script type="text/javascript" src="/static/js/search.js?t=20250103191432"></script>
+<script type="text/javascript" src="/static/js/blog.js?t=20250109175448"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20250109175448"></script>
 
 </body>
 </html>

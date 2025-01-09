@@ -1,12 +1,30 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="{{ page.lang | default: site.default_lang }}">
 {% include head.html -%}
 <body ondragstart="return false;">
 {% include header.html -%}
 <div class="page page-post">
   <h1 class="title" id="{{ page.title }}">{{ page.title }}</h1>
   {% if page.date %}
-  <div class="subtitle">{{site.author}} 于 {{ page.date | date: "%Y-%m-%d" }} 发布</div>
+  <div class="subtitle">
+    <span data-i18n="post.published">发布于</span> {{ page.date | date: "%Y-%m-%d" }}
+    {% if page.categories %}
+    <span class="post-categories">
+      <span data-i18n="post.categories">分类</span>:
+      {% for category in page.categories %}
+        <a href="{{site.baseurl}}/pages/categories.html#{{ category }}" class="hover-underline">{{ category }}</a>
+      {% endfor %}
+    </span>
+    {% endif %}
+  </div>
+  {% endif %}
+  {% if page.lang_versions %}
+  <div class="lang-versions">
+    <span data-i18n="post.other_languages">其他语言</span>:
+    {% for version in page.lang_versions %}
+      <a href="{{ version.url }}" class="hover-underline">{{ version.lang }}</a>
+    {% endfor %}
+  </div>
   {% endif %}
   <div class="post">
     {{ content }}

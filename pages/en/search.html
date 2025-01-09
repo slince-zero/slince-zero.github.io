@@ -1,0 +1,87 @@
+---
+layout: page
+title: Search
+lang: en
+---
+
+<div class="page page-search">
+  <h1>
+    <span>Search</span>
+    <img src="{{site.baseurl}}/static/img/loading.svg">
+  </h1>
+  <input id="search-input" type="text" placeholder="Enter keywords to search..." />
+  <div class="list-search">
+  </div>
+</div>
+
+<script>
+  // 加载搜索数据
+  window.searchData = [];
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '{{site.baseurl}}/static/xml/search.xml?t=' + new Date().getTime());
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var xml = xhr.responseXML;
+      var entries = xml.getElementsByTagName('entry');
+      for (var i = 0; i < entries.length; i++) {
+        var entry = entries[i];
+        var title = entry.getElementsByTagName('title')[0].textContent;
+        var content = entry.getElementsByTagName('content')[0].textContent;
+        var url = entry.getElementsByTagName('url')[0].textContent;
+        var lang = entry.getElementsByTagName('lang')[0]?.textContent || 'zh-CN';
+        if (lang === currentLang) {
+          searchData.push({
+            title: title,
+            content: content,
+            url: url,
+            lang: lang
+          });
+        }
+      }
+    }
+  };
+  xhr.send();
+
+  // 处理搜索
+  function search(keyword) {
+    if (keyword.length === 0) {
+      document.querySelector('.list-search').innerHTML = '';
+      return;
+    }
+    keyword = keyword.toLowerCase();
+    var results = [];
+    for (var i = 0; i < searchData.length; i++) {
+      var item = searchData[i];
+      var title = item.title.toLowerCase();
+      var content = item.content.toLowerCase();
+      if (title.indexOf(keyword) > -1 || content.indexOf(keyword) > -1) {
+        results.push(item);
+      }
+    }
+    var html = '';
+    if (results.length > 0) {
+      for (var i = 0; i < results.length; i++) {
+        var item = results[i];
+        var title = item.title.replace(new RegExp(keyword, 'gi'), function (match) {
+          return '<span class="hint">' + match + '</span>';
+        });
+        var content = item.content.replace(new RegExp(keyword, 'gi'), function (match) {
+          return '<span class="hint">' + match + '</span>';
+        });
+        html += '<li>';
+        html += '<a href="' + item.url + '">';
+        html += '<span class="title">' + title + '</span>';
+        html += '<span class="content">' + content + '</span>';
+        html += '</a></li>';
+      }
+    } else {
+      html = '<li><span class="content">No results found</span></li>';
+    }
+    document.querySelector('.list-search').innerHTML = html;
+  }
+
+  // 监听输入
+  document.getElementById('search-input').addEventListener('input', function () {
+    search(this.value.trim());
+  });
+</script> 

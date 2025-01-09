@@ -3,16 +3,16 @@ layout: page
 title: 首页
 ---
 <div class="page page-index">
-  {% for post in site.posts  -%}
+  {% for post in site.posts %}
     {%- capture post_year %}{{ post.date | date: "%Y" }}{% endcapture -%}
     {%- capture post_previous_year %}{{ post.previous.date | date: "%Y" }}{% endcapture -%}
     {%- capture post_next_year %}{{ post.next.date | date: "%Y" }}{% endcapture -%}
     {%- if forloop.first or post_next_year != post_year -%}
-    <div class="list-post">
+    <div class="list-post" data-year="{{post_year}}">
       <h2 id="{{post_year}}">{{post_year}}</h2>
       <ul>
     {%- endif %}
-        <li>
+        <li data-lang="{{ post.lang | default: 'zh-CN' }}">
           <span class="date">{{ post.date | date: "%Y/%m/%d" }}</span>
           <div class="title">
             <a href="{{ site.baseurl | append: post.url }}" class="hover-underline">{{ post.title }}</a>
@@ -29,4 +29,42 @@ title: 首页
     {%- endif %}
   {%- endfor %}
 </div>
+
+<script>
+// 根据当前语言过滤文章
+function filterPostsByLanguage() {
+  const currentLang = localStorage.getItem('blog_language') || 'zh-CN';
+  const posts = document.querySelectorAll('.page-index .list-post li');
+  let yearVisibility = {};
+  
+  // 过滤文章
+  posts.forEach(post => {
+    const postLang = post.getAttribute('data-lang');
+    const yearSection = post.closest('.list-post');
+    const year = yearSection.getAttribute('data-year');
+    
+    if (postLang === currentLang) {
+      post.style.display = '';
+      yearVisibility[year] = true;
+    } else {
+      post.style.display = 'none';
+    }
+  });
+  
+  // 处理年份标题的显示/隐藏
+  document.querySelectorAll('.page-index .list-post').forEach(yearSection => {
+    const year = yearSection.getAttribute('data-year');
+    const hasVisiblePosts = yearSection.querySelector(`li[data-lang="${currentLang}"]`);
+    yearSection.style.display = hasVisiblePosts ? '' : 'none';
+  });
+}
+
+// 页面加载时过滤文章
+document.addEventListener('DOMContentLoaded', filterPostsByLanguage);
+
+// 监听语言变化
+window.addEventListener('languageChanged', () => {
+  filterPostsByLanguage();
+});
+</script>
 

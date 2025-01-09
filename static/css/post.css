@@ -163,3 +163,19 @@
     margin: 15px 0;
   }
 }
+
+.lang-versions {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.lang-versions a {
+  margin-left: 10px;
+  color: #4a4a4a;
+  text-decoration: none;
+}
+
+.lang-versions a:hover {
+  color: #000;
+}

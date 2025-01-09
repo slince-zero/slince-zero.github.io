@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <title>文章分类-slince Blog</title>
+  <title>归类-slince Blog</title>
   <meta charset="utf-8" />
   <meta http-equiv="content-language" content="zh-CN" />
   <meta name="theme-color" content="#ffffff" />
@@ -15,15 +15,17 @@
   <meta name="keywords" content="slince,Blog,Java,Html,JavaScript"/>
   <link rel="icon" href="/static/img/favicon.ico" />
   <link rel="apple-touch-icon" href="/static/img/logo.png" />
-  <link rel="stylesheet" href="/static/css/common.css?t=20250103191432">
-  <link rel="stylesheet" href="/static/css/theme-dark.css?t=20250103191432">
-  <link rel="stylesheet" href="/static/css/page.css?t=20250103191432">
-  <link rel="prefetch" href="/static/xml/search.xml?t=20250103191432">
-  <link rel="prefetch" href="/static/js/search.js?t=20250103191432">
+  <link rel="stylesheet" href="/static/css/common.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/theme-dark.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/page.css?t=20250109175448">
+  <link rel="prefetch" href="/static/xml/search.xml?t=20250109175448">
+  <link rel="prefetch" href="/static/js/search.js?t=20250109175448">
+  <script src="/static/js/translations.js?t=20250109175448" defer></script>
+  <script src="/static/js/language.js?t=20250109175448" defer></script>
   <script>
     window.blog = {
       baseurl:"",
-      buildAt:"20250103191432",
+      buildAt:"20250109175448",
       darkTheme: false,
       setDarkTheme: function (dark) {
         this.darkTheme = Boolean(dark);
@@ -49,140 +51,235 @@
 <header class="header">
   <img class="logo" src="/static/img/logo.jpg" alt="logo"/>
   <nav class="menu">
-    <a href="/"  class="hover-underline">首页</a>
-    <a href="/pages/categories.html"  class="hover-underline">归类</a>
-    <a href="/pages/search.html"  class="hover-underline">搜索</a>
-    <a href="/pages/links.html"  class="hover-underline">友链</a>
-    <a href="/pages/about.html"  class="hover-underline">关于</a>
-    </nav>
+    <a href="/"  class="hover-underline" data-i18n="menu.首页">首页</a>
+    <a href="/pages/categories.html"  class="hover-underline" data-i18n="menu.归类">归类</a>
+    <a href="/pages/search.html"  class="hover-underline" data-i18n="menu.搜索">搜索</a>
+    <a href="/pages/links.html"  class="hover-underline" data-i18n="menu.友链">友链</a>
+    <a href="/pages/about.html"  class="hover-underline" data-i18n="menu.关于">关于</a>
+    <a href="javascript:void(0)" onclick="toggleLanguage()" class="hover-underline language-switch">
+      <span class="lang-text">中文</span>
+    </a>
+  </nav>
 </header>
 <div class="page page-categories">
-    <div class="list-category">
-        <h2>所有分类</h2>
-        <div>
-            <a href="javascript:document.getElementById('Jekyll').scrollIntoView()">Jekyll</a>
-            <a href="javascript:document.getElementById('trip').scrollIntoView()">trip</a>
-            <a href="javascript:document.getElementById('story').scrollIntoView()">story</a>
-            <a href="javascript:document.getElementById('数据结构').scrollIntoView()">数据结构</a>
-            <a href="javascript:document.getElementById('教程').scrollIntoView()">教程</a>
+  <div class="list-category">
+    <h2 data-i18n="categories.all">所有分类</h2>
+    <div>
+      
+      <a href="#Jekyll" class="hover-underline">Jekyll</a>
+      
+      <a href="#trip" class="hover-underline">trip</a>
+      
+      <a href="#story" class="hover-underline">story</a>
+      
+      <a href="#数据结构" class="hover-underline">数据结构</a>
+      
+      <a href="#教程" class="hover-underline">教程</a>
+      
+      <a href="#Blog" class="hover-underline">Blog</a>
+      
+    </div>
+  </div>
+  
+  <div class="list-post" data-category="Jekyll">
+    <h2 id="Jekyll">Jekyll</h2>
+    <ul>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2022/06/14</span>
+        <div class="title">
+          <a href="/posts/2022/06/14/%E4%B8%BB%E9%A2%98%E9%A2%84%E8%A7%88.html" class="hover-underline">主题预览</a>
         </div>
-    </div>
-    <div class="list-post">
-        <h2 id="Jekyll">Jekyll</h2>
-        <ul>
-            <li>
-                <span class="date">2022/06/14</span>
-                <div class="title">
-                    <a href="/posts/2022/06/14/%E4%B8%BB%E9%A2%98%E9%A2%84%E8%A7%88.html" class="hover-underline">主题预览</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="list-post">
-        <h2 id="trip">trip</h2>
-        <ul>
-            <li>
-                <span class="date">2022/08/14</span>
-                <div class="title">
-                    <a href="/posts/2022/08/14/%E5%A5%BD%E4%B9%85%E4%B8%8D%E8%A7%81.html" class="hover-underline">好久不见</a>
-                </div>
-            </li>
-            <li>
-                <span class="date">2022/06/20</span>
-                <div class="title">
-                    <a href="/posts/2022/06/20/%E5%8F%A4%E9%83%BD%E6%B4%9B%E9%98%B3.html" class="hover-underline">古都洛阳</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="list-post">
-        <h2 id="story">story</h2>
-        <ul>
-            <li>
-                <span class="date">2024/12/31</span>
-                <div class="title">
-                    <a href="/posts/2024/12/31/2024%E6%80%BB%E7%BB%93.html" class="hover-underline">2024总结</a>
-                </div>
-            </li>
-            <li>
-                <span class="date">2024/08/15</span>
-                <div class="title">
-                    <a href="/posts/2024/08/15/%E5%B0%91%E5%B9%B4%E6%B3%AA.html" class="hover-underline">少年泪</a>
-                </div>
-            </li>
-            <li>
-                <span class="date">2023/12/31</span>
-                <div class="title">
-                    <a href="/posts/2023/12/31/2023%E6%80%BB%E7%BB%93.html" class="hover-underline">2023总结</a>
-                </div>
-            </li>
-            <li>
-                <span class="date">2022/12/29</span>
-                <div class="title">
-                    <a href="/posts/2022/12/29/2022%E6%80%BB%E7%BB%93.html" class="hover-underline">2022总结</a>
-                </div>
-            </li>
-            <li>
-                <span class="date">2022/07/31</span>
-                <div class="title">
-                    <a href="/posts/2022/07/31/%E6%97%B7%E9%87%8E%E5%AF%BB%E5%9D%80.html" class="hover-underline">旷野寻址</a>
-                </div>
-            </li>
-            <li>
-                <span class="date">2022/06/27</span>
-                <div class="title">
-                    <a href="/posts/2022/06/27/%E5%A4%A9%E7%A9%BA%E4%B9%8B%E5%9F%8E.html" class="hover-underline">天空之城</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="list-post">
-        <h2 id="数据结构">数据结构</h2>
-        <ul>
-            <li>
-                <span class="date">2022/07/18</span>
-                <div class="title">
-                    <a href="/posts/2022/07/18/%E9%A1%BA%E5%BA%8F%E7%BA%BF%E6%80%A7%E8%A1%A8%E6%80%9D%E8%80%83.html" class="hover-underline">顺序线性表思考</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="list-post">
-        <h2 id="教程">教程</h2>
-        <ul>
-            <li>
-                <span class="date">2024/05/30</span>
-                <div class="title">
-                    <a href="/posts/2024/05/30/%E8%8A%82%E6%B5%81-%E9%98%B2%E6%8A%96%E4%BB%A5%E5%8F%8A%E8%BF%99%E6%AE%B5%E6%97%B6%E9%97%B4%E6%9D%A5%E7%9A%84%E6%84%9F%E5%8F%97.html" class="hover-underline">节流、防抖以及这段时间来的感受</a>
-                </div>
-            </li>
-            <li>
-                <span class="date">2023/08/10</span>
-                <div class="title">
-                    <a href="/posts/2023/08/10/JS%E9%AB%98%E7%BA%A7.html" class="hover-underline">JS高级</a>
-                </div>
-            </li>
-            <li>
-                <span class="date">2023/06/18</span>
-                <div class="title">
-                    <a href="/posts/2023/06/18/ECMAScript6%E7%9B%B8%E5%85%B3%E4%BB%8B%E7%BB%8D.html" class="hover-underline">ES6相关介绍</a>
-                </div>
-            </li>
-            <li>
-                <span class="date">2023/06/17</span>
-                <div class="title">
-                    <a href="/posts/2023/06/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.html" class="hover-underline">计算机网络</a>
-                </div>
-            </li>
-            <li>
-                <span class="date">2022/11/28</span>
-                <div class="title">
-                    <a href="/posts/2022/11/28/%E5%A5%88%E9%A3%9E%E6%95%99%E7%A8%8B.html" class="hover-underline">奈飞教程</a>
-                </div>
-            </li>
-        </ul>
-    </div>
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="list-post" data-category="trip">
+    <h2 id="trip">trip</h2>
+    <ul>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2022/08/14</span>
+        <div class="title">
+          <a href="/posts/2022/08/14/%E5%A5%BD%E4%B9%85%E4%B8%8D%E8%A7%81.html" class="hover-underline">好久不见</a>
+        </div>
+      </li>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2022/06/20</span>
+        <div class="title">
+          <a href="/posts/2022/06/20/%E5%8F%A4%E9%83%BD%E6%B4%9B%E9%98%B3.html" class="hover-underline">古都洛阳</a>
+        </div>
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="list-post" data-category="story">
+    <h2 id="story">story</h2>
+    <ul>
+      
+      <li data-lang="en">
+        <span class="date">2024/12/31</span>
+        <div class="title">
+          <a href="/posts/2024/12/31/2024-Year-in-Review.html" class="hover-underline">2024 Year in Review</a>
+        </div>
+      </li>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2024/08/15</span>
+        <div class="title">
+          <a href="/posts/2024/08/15/%E5%B0%91%E5%B9%B4%E6%B3%AA.html" class="hover-underline">少年泪</a>
+        </div>
+      </li>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2023/12/31</span>
+        <div class="title">
+          <a href="/posts/2023/12/31/2023%E6%80%BB%E7%BB%93.html" class="hover-underline">2023总结</a>
+        </div>
+      </li>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2022/12/29</span>
+        <div class="title">
+          <a href="/posts/2022/12/29/2022%E6%80%BB%E7%BB%93.html" class="hover-underline">2022总结</a>
+        </div>
+      </li>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2022/07/31</span>
+        <div class="title">
+          <a href="/posts/2022/07/31/%E6%97%B7%E9%87%8E%E5%AF%BB%E5%9D%80.html" class="hover-underline">旷野寻址</a>
+        </div>
+      </li>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2022/06/27</span>
+        <div class="title">
+          <a href="/posts/2022/06/27/%E5%A4%A9%E7%A9%BA%E4%B9%8B%E5%9F%8E.html" class="hover-underline">天空之城</a>
+        </div>
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="list-post" data-category="数据结构">
+    <h2 id="数据结构">数据结构</h2>
+    <ul>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2022/07/18</span>
+        <div class="title">
+          <a href="/posts/2022/07/18/%E9%A1%BA%E5%BA%8F%E7%BA%BF%E6%80%A7%E8%A1%A8%E6%80%9D%E8%80%83.html" class="hover-underline">顺序线性表思考</a>
+        </div>
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="list-post" data-category="教程">
+    <h2 id="教程">教程</h2>
+    <ul>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2024/05/30</span>
+        <div class="title">
+          <a href="/posts/2024/05/30/%E8%8A%82%E6%B5%81-%E9%98%B2%E6%8A%96%E4%BB%A5%E5%8F%8A%E8%BF%99%E6%AE%B5%E6%97%B6%E9%97%B4%E6%9D%A5%E7%9A%84%E6%84%9F%E5%8F%97.html" class="hover-underline">节流、防抖以及这段时间来的感受</a>
+        </div>
+      </li>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2023/08/10</span>
+        <div class="title">
+          <a href="/posts/2023/08/10/JS%E9%AB%98%E7%BA%A7.html" class="hover-underline">JS高级</a>
+        </div>
+      </li>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2023/06/18</span>
+        <div class="title">
+          <a href="/posts/2023/06/18/ECMAScript6%E7%9B%B8%E5%85%B3%E4%BB%8B%E7%BB%8D.html" class="hover-underline">ES6相关介绍</a>
+        </div>
+      </li>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2023/06/17</span>
+        <div class="title">
+          <a href="/posts/2023/06/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.html" class="hover-underline">计算机网络</a>
+        </div>
+      </li>
+      
+      <li data-lang="zh-CN">
+        <span class="date">2022/11/28</span>
+        <div class="title">
+          <a href="/posts/2022/11/28/%E5%A5%88%E9%A3%9E%E6%95%99%E7%A8%8B.html" class="hover-underline">奈飞教程</a>
+        </div>
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="list-post" data-category="Blog">
+    <h2 id="Blog">Blog</h2>
+    <ul>
+      
+      <li data-lang="en">
+        <span class="date">2024/01/03</span>
+        <div class="title">
+          <a href="/posts/2024/01/03/hello-world.html" class="hover-underline">Welcome to My Blog</a>
+        </div>
+      </li>
+      
+    </ul>
+  </div>
+  
 </div>
+
+<script>
+// 根据当前语言过滤文章
+function filterPostsByLanguage() {
+  const currentLang = localStorage.getItem('blog_language') || 'zh-CN';
+  const posts = document.querySelectorAll('.page-categories .list-post li');
+  let categoryVisibility = {};
+  
+  // 过滤文章
+  posts.forEach(post => {
+    const postLang = post.getAttribute('data-lang');
+    const categorySection = post.closest('.list-post');
+    const category = categorySection.getAttribute('data-category');
+    
+    if (postLang === currentLang) {
+      post.style.display = '';
+      categoryVisibility[category] = true;
+    } else {
+      post.style.display = 'none';
+    }
+  });
+  
+  // 处理分类的显示/隐藏
+  document.querySelectorAll('.page-categories .list-post').forEach(categorySection => {
+    const category = categorySection.getAttribute('data-category');
+    const hasVisiblePosts = categorySection.querySelector(`li[data-lang="${currentLang}"]`);
+    categorySection.style.display = hasVisiblePosts ? '' : 'none';
+  });
+  
+  // 更新分类链接
+  document.querySelectorAll('.list-category a').forEach(link => {
+    const category = link.getAttribute('href').substring(1);
+    link.style.display = categoryVisibility[category] ? '' : 'none';
+  });
+}
+
+// 页面加载时过滤文章
+document.addEventListener('DOMContentLoaded', filterPostsByLanguage);
+
+// 监听语言变化
+window.addEventListener('languageChanged', () => {
+  filterPostsByLanguage();
+});
+</script>
 <footer
   class="footer"
   style="display: flex; justify-content: center; align-items: center">
@@ -195,7 +292,7 @@
   <span></span>
   <span></span>
 </div>
-<script type="text/javascript" src="/static/js/blog.js?t=20250103191432"></script>
-<script type="text/javascript" src="/static/js/search.js?t=20250103191432"></script>
+<script type="text/javascript" src="/static/js/blog.js?t=20250109175448"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20250109175448"></script>
 </body>
 </html>

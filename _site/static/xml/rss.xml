@@ -5,16 +5,16 @@
     <link>https://slince-zero.github.io</link>
     <description>slince的个人博客</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 03 Jan 2025 19:14:32 +0800</pubDate>
-    <lastBuildDate>Fri, 03 Jan 2025 19:14:32 +0800</lastBuildDate>
+    <pubDate>Thu, 09 Jan 2025 17:54:48 +0800</pubDate>
+    <lastBuildDate>Thu, 09 Jan 2025 17:54:48 +0800</lastBuildDate>
     <generator>Jekyll v4.3.4</generator>
     <atom:link href="https://slince-zero.github.io/static/xml/rss.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>2024总结</title>
-      <link>https://slince-zero.github.io/posts/2024/12/31/2024%E6%80%BB%E7%BB%93.html</link>
-      <description>今天就是今年的最后一天了，按照往常的惯例，今年又来做一年的总结了。年初的时候一直在学习react的使用，这段时间当中，了解到一些开源项目、UI组件库，还有TailwindCSS的使用，用这些技术栈写了很多小的组件。四月份的时候，开始用...</description>
+      <title>2024 Year in Review</title>
+      <link>https://slince-zero.github.io/posts/2024/12/31/2024-Year-in-Review.html</link>
+      <description>Todayisthelastdayoftheyear,andasusual,it’stimeformyannualreview.Lastyear,afterreceivingmygraduateschoolexamresults,Id...</description>
       <pubDate>Tue, 31 Dec 2024 00:00:00 +0800</pubDate>
-      <gui>https://slince-zero.github.io/posts/2024/12/31/2024%E6%80%BB%E7%BB%93.html</gui>
+      <gui>https://slince-zero.github.io/posts/2024/12/31/2024-Year-in-Review.html</gui>
     </item>
     <item>
       <title>少年泪</title>
@@ -29,6 +29,13 @@
       <description>这几天复习到了两个概念，一个是节流，一个是防抖，他们都是可以用于浏览器性能优化。不过在说明节流和防抖的概念之前，先说一下call、apply、bind这三个函数call、apply、bind这三个函数都是JS中函数的方法，是用来改变函...</description>
       <pubDate>Thu, 30 May 2024 00:00:00 +0800</pubDate>
       <gui>https://slince-zero.github.io/posts/2024/05/30/%E8%8A%82%E6%B5%81-%E9%98%B2%E6%8A%96%E4%BB%A5%E5%8F%8A%E8%BF%99%E6%AE%B5%E6%97%B6%E9%97%B4%E6%9D%A5%E7%9A%84%E6%84%9F%E5%8F%97.html</gui>
+    </item>
+    <item>
+      <title>Welcome to My Blog</title>
+      <link>https://slince-zero.github.io/posts/2024/01/03/hello-world.html</link>
+      <description>WelcomeThisisasampleblogposttodemonstratethemultilingualsupportfeature.ThisarticleisavailableinbothEnglishandChinese,...</description>
+      <pubDate>Wed, 03 Jan 2024 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2024/01/03/hello-world.html</gui>
     </item>
     <item>
       <title>2023总结</title>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <title>友链-slince Blog</title>
+  <title>Search-slince Blog</title>
   <meta charset="utf-8" />
   <meta http-equiv="content-language" content="zh-CN" />
   <meta name="theme-color" content="#ffffff" />
@@ -17,9 +17,7 @@
   <link rel="apple-touch-icon" href="/static/img/logo.png" />
   <link rel="stylesheet" href="/static/css/common.css?t=20250109175448">
   <link rel="stylesheet" href="/static/css/theme-dark.css?t=20250109175448">
-  <link rel="stylesheet" href="/static/css/post.css?t=20250109175448">
-  <link rel="stylesheet" href="/static/css/code-dark.css?t=20250109175448">
-  <link rel="stylesheet" href="/static/css/code-light.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/page.css?t=20250109175448">
   <link rel="prefetch" href="/static/xml/search.xml?t=20250109175448">
   <link rel="prefetch" href="/static/js/search.js?t=20250109175448">
   <script src="/static/js/translations.js?t=20250109175448" defer></script>
@@ -63,95 +61,87 @@
     </a>
   </nav>
 </header>
-<div class="page page-post">
-  <h1 class="title" id="友链">友链</h1>
-  
-  
-  <div class="post">
-    <p>欢迎各位朋友与我建立友链，如需友链请到<a href="chat.html">留言板</a>留言，我看到留言后会添加上的，本站的友链信息如下</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>名称：slince Blog
-描述：slince的个人博客
-地址：https://slince-zero.github.io
-头像：https://slince-zero.github.io/static/img/logo.jpg
-</code></pre></div></div>
-
-<ul>
-  <li>
-    <p><a href="https://v2ex.com" title="" target="_blank">v2ex</a></p>
-  </li>
-</ul>
-
+<div class="page page-search">
+  <h1>
+    <span>Search</span>
+    <img src="/static/img/loading.svg">
+  </h1>
+  <input id="search-input" type="text" placeholder="Enter keywords to search..." />
+  <div class="list-search">
   </div>
-  
-  <div class="comments-container">
-    <!-- Utterances 评论组件 -->
-<script
-  src="https://utteranc.es/client.js"
-  repo="slince-zero/slince-zero.github.io"
-  issue-term="pathname"
-  theme="github-light"
-  crossorigin="anonymous"
-  async></script>
+</div>
 
 <script>
-  function getCurrentTheme() {
-    return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-  }
-
-  const utterancesTheme = (theme) => {
-    if (theme === 'dark') {
-      return 'github-dark'
-    }
-    return 'github-light'
-  }
-
-  // 设置评论主题
-  const setUtterancesTheme = () => {
-    const theme = getCurrentTheme()
-    const message = {
-      type: 'set-theme',
-      theme: utterancesTheme(theme)
-    }
-    const iframe = document.querySelector('.utterances-frame')
-    if (iframe) {
-      iframe.contentWindow.postMessage(message, 'https://utteranc.es')
-    }
-  }
-
-  // 监听主题变化
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.attributeName === 'class') {
-        setUtterancesTheme()
+  // 加载搜索数据
+  window.searchData = [];
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '/static/xml/search.xml?t=' + new Date().getTime());
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var xml = xhr.responseXML;
+      var entries = xml.getElementsByTagName('entry');
+      for (var i = 0; i < entries.length; i++) {
+        var entry = entries[i];
+        var title = entry.getElementsByTagName('title')[0].textContent;
+        var content = entry.getElementsByTagName('content')[0].textContent;
+        var url = entry.getElementsByTagName('url')[0].textContent;
+        var lang = entry.getElementsByTagName('lang')[0]?.textContent || 'zh-CN';
+        if (lang === currentLang) {
+          searchData.push({
+            title: title,
+            content: content,
+            url: url,
+            lang: lang
+          });
+        }
       }
-    })
-  })
+    }
+  };
+  xhr.send();
 
-  // 开始观察 html 元素的 class 变化
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['class']
-  })
-
-  // 等待 iframe 加载完成后初始化主题
-  const initTheme = () => {
-    const checkIframe = setInterval(() => {
-      const iframe = document.querySelector('.utterances-frame')
-      if (iframe) {
-        clearInterval(checkIframe)
-        setUtterancesTheme()
+  // 处理搜索
+  function search(keyword) {
+    if (keyword.length === 0) {
+      document.querySelector('.list-search').innerHTML = '';
+      return;
+    }
+    keyword = keyword.toLowerCase();
+    var results = [];
+    for (var i = 0; i < searchData.length; i++) {
+      var item = searchData[i];
+      var title = item.title.toLowerCase();
+      var content = item.content.toLowerCase();
+      if (title.indexOf(keyword) > -1 || content.indexOf(keyword) > -1) {
+        results.push(item);
       }
-    }, 300)
-    // 5秒后停止检查，避免无限循环
-    setTimeout(() => clearInterval(checkIframe), 5000)
+    }
+    var html = '';
+    if (results.length > 0) {
+      for (var i = 0; i < results.length; i++) {
+        var item = results[i];
+        var title = item.title.replace(new RegExp(keyword, 'gi'), function (match) {
+          return '<span class="hint">' + match + '</span>';
+        });
+        var content = item.content.replace(new RegExp(keyword, 'gi'), function (match) {
+          return '<span class="hint">' + match + '</span>';
+        });
+        html += '<li>';
+        html += '<a href="' + item.url + '">';
+        html += '<span class="title">' + title + '</span>';
+        html += '<span class="content">' + content + '</span>';
+        html += '</a></li>';
+      }
+    } else {
+      html = '<li><span class="content">No results found</span></li>';
+    }
+    document.querySelector('.list-search').innerHTML = html;
   }
 
-  // 页面加载完成后初始化
-  window.addEventListener('load', initTheme)
-</script>
-</div>
-</div>
+  // 监听输入
+  document.getElementById('search-input').addEventListener('input', function () {
+    search(this.value.trim());
+  });
+</script> 
 <footer
   class="footer"
   style="display: flex; justify-content: center; align-items: center">
@@ -166,6 +156,5 @@
 </div>
 <script type="text/javascript" src="/static/js/blog.js?t=20250109175448"></script>
 <script type="text/javascript" src="/static/js/search.js?t=20250109175448"></script>
-
 </body>
 </html>

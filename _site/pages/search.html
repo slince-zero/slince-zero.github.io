@@ -15,15 +15,17 @@
   <meta name="keywords" content="slince,Blog,Java,Html,JavaScript"/>
   <link rel="icon" href="/static/img/favicon.ico" />
   <link rel="apple-touch-icon" href="/static/img/logo.png" />
-  <link rel="stylesheet" href="/static/css/common.css?t=20250103191432">
-  <link rel="stylesheet" href="/static/css/theme-dark.css?t=20250103191432">
-  <link rel="stylesheet" href="/static/css/page.css?t=20250103191432">
-  <link rel="prefetch" href="/static/xml/search.xml?t=20250103191432">
-  <link rel="prefetch" href="/static/js/search.js?t=20250103191432">
+  <link rel="stylesheet" href="/static/css/common.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/theme-dark.css?t=20250109175448">
+  <link rel="stylesheet" href="/static/css/page.css?t=20250109175448">
+  <link rel="prefetch" href="/static/xml/search.xml?t=20250109175448">
+  <link rel="prefetch" href="/static/js/search.js?t=20250109175448">
+  <script src="/static/js/translations.js?t=20250109175448" defer></script>
+  <script src="/static/js/language.js?t=20250109175448" defer></script>
   <script>
     window.blog = {
       baseurl:"",
-      buildAt:"20250103191432",
+      buildAt:"20250109175448",
       darkTheme: false,
       setDarkTheme: function (dark) {
         this.darkTheme = Boolean(dark);
@@ -49,12 +51,15 @@
 <header class="header">
   <img class="logo" src="/static/img/logo.jpg" alt="logo"/>
   <nav class="menu">
-    <a href="/"  class="hover-underline">首页</a>
-    <a href="/pages/categories.html"  class="hover-underline">归类</a>
-    <a href="/pages/search.html"  class="hover-underline">搜索</a>
-    <a href="/pages/links.html"  class="hover-underline">友链</a>
-    <a href="/pages/about.html"  class="hover-underline">关于</a>
-    </nav>
+    <a href="/"  class="hover-underline" data-i18n="menu.首页">首页</a>
+    <a href="/pages/categories.html"  class="hover-underline" data-i18n="menu.归类">归类</a>
+    <a href="/pages/search.html"  class="hover-underline" data-i18n="menu.搜索">搜索</a>
+    <a href="/pages/links.html"  class="hover-underline" data-i18n="menu.友链">友链</a>
+    <a href="/pages/about.html"  class="hover-underline" data-i18n="menu.关于">关于</a>
+    <a href="javascript:void(0)" onclick="toggleLanguage()" class="hover-underline language-switch">
+      <span class="lang-text">中文</span>
+    </a>
+  </nav>
 </header>
 <div class="page page-search">
   <input id="search-input" type="text" placeholder="请在这里输入关键词^_^"></input>
@@ -64,8 +69,8 @@
   </h1>
   <ul class="list-search">
     <li hidden>
-      <a href="/posts/2024/12/31/2024%E6%80%BB%E7%BB%93.html">
-        <p class="title">2024总结</p>
+      <a href="/posts/2024/12/31/2024-Year-in-Review.html">
+        <p class="title">2024 Year in Review</p>
         <p class="content"></p>
       </a>
     </li>
@@ -78,6 +83,12 @@
     <li hidden>
       <a href="/posts/2024/05/30/%E8%8A%82%E6%B5%81-%E9%98%B2%E6%8A%96%E4%BB%A5%E5%8F%8A%E8%BF%99%E6%AE%B5%E6%97%B6%E9%97%B4%E6%9D%A5%E7%9A%84%E6%84%9F%E5%8F%97.html">
         <p class="title">节流、防抖以及这段时间来的感受</p>
+        <p class="content"></p>
+      </a>
+    </li>
+    <li hidden>
+      <a href="/posts/2024/01/03/hello-world.html">
+        <p class="title">Welcome to My Blog</p>
         <p class="content"></p>
       </a>
     </li>
@@ -168,7 +179,7 @@
   <span></span>
   <span></span>
 </div>
-<script type="text/javascript" src="/static/js/blog.js?t=20250103191432"></script>
-<script type="text/javascript" src="/static/js/search.js?t=20250103191432"></script>
+<script type="text/javascript" src="/static/js/blog.js?t=20250109175448"></script>
+<script type="text/javascript" src="/static/js/search.js?t=20250109175448"></script>
 </body>
 </html>

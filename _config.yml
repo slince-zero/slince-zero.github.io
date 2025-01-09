@@ -23,6 +23,10 @@ baseurl: ''
 # 吐个槽地址，会在chat页面中重定向到该地址
 tucaoUrl: https://support.qq.com/products/412822
 
+# 语言设置
+languages: ['zh-CN', 'en']
+default_lang: 'zh-CN'
+
 # 菜单
 # 必填字段 title: '文本' url: '链接'
 # 可选字段 target: '_blank' 新页面打开 
