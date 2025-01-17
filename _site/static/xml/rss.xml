@@ -5,10 +5,31 @@
     <link>https://slince-zero.github.io</link>
     <description>slince的个人博客</description>
     <language>zh-CN</language>
-    <pubDate>Thu, 09 Jan 2025 17:54:48 +0800</pubDate>
-    <lastBuildDate>Thu, 09 Jan 2025 17:54:48 +0800</lastBuildDate>
+    <pubDate>Fri, 17 Jan 2025 11:36:24 +0800</pubDate>
+    <lastBuildDate>Fri, 17 Jan 2025 11:36:24 +0800</lastBuildDate>
     <generator>Jekyll v4.3.4</generator>
     <atom:link href="https://slince-zero.github.io/static/xml/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 CSS 实现无限轮播效果</title>
+      <link>https://slince-zero.github.io/posts/2025/01/17/%E4%BD%BF%E7%94%A8-CSS-%E5%AE%9E%E7%8E%B0%E6%97%A0%E9%99%90%E8%BD%AE%E6%92%AD%E6%95%88%E6%9E%9C.html</link>
+      <description>今天和大家分享一个使用纯CSS实现的无限轮播效果。这个轮播效果不需要任何JavaScript，完全依靠CSS动画来实现，而且支持鼠标悬停暂停。效果展示实现原理实现这个效果的核心在于：创建两组完全相同的内容使用CSSanimation让...</description>
+      <pubDate>Fri, 17 Jan 2025 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2025/01/17/%E4%BD%BF%E7%94%A8-CSS-%E5%AE%9E%E7%8E%B0%E6%97%A0%E9%99%90%E8%BD%AE%E6%92%AD%E6%95%88%E6%9E%9C.html</gui>
+    </item>
+    <item>
+      <title>babel 使用</title>
+      <link>https://slince-zero.github.io/posts/2025/01/16/babel-%E4%BD%BF%E7%94%A8.html</link>
+      <description>什么是BabelBabel是一个JavaScript编译器,提供了JavaScript的编译过程，能够将源代码转换为目标代码。AST-&amp;gt;Transform-&amp;gt;Generate官网https://babeljs.io/查看A...</description>
+      <pubDate>Thu, 16 Jan 2025 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2025/01/16/babel-%E4%BD%BF%E7%94%A8.html</gui>
+    </item>
+    <item>
+      <title>岁岁念念</title>
+      <link>https://slince-zero.github.io/posts/2025/01/15/%E5%B2%81%E5%B2%81%E5%BF%B5%E5%BF%B5.html</link>
+      <description>现在博客已经支持中文和英文切换了，点击右上角语言切换按钮即可，24年终总结移动到了英文模块下。前几天，我写了一篇年终总结发到社区里面，受到了很多前辈的鼓励和支持，再次表示非常的感谢。这两周，参加了字节豆包的一个比赛，用AI来写一款软件...</description>
+      <pubDate>Wed, 15 Jan 2025 00:00:00 +0800</pubDate>
+      <gui>https://slince-zero.github.io/posts/2025/01/15/%E5%B2%81%E5%B2%81%E5%BF%B5%E5%BF%B5.html</gui>
+    </item>
     <item>
       <title>2024 Year in Review</title>
       <link>https://slince-zero.github.io/posts/2024/12/31/2024-Year-in-Review.html</link>

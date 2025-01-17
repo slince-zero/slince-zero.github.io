@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infinite Carousel Demo</title>
+    <style>
+      .carousel {
+        margin: 0 auto;
+        padding: 20px 0;
+        max-width: 700px;
+        overflow: hidden;
+        display: flex;
+        > * {
+          flex: 0 0 100%;
+        }
+
+        &:hover .group {
+          animation-play-state: paused;
+          cursor: pointer;
+        }
+      }
+      .card {
+        width: 100%;
+        color: #000;
+        border-radius: 24px;
+        box-shadow: rgba(0, 0, 0, 10%) 5px 5px 20px 0;
+        padding: 20px;
+        font-size: xx-large;
+        justify-content: center;
+        align-items: center;
+        min-height: 200px;
+
+        &:nth-child(1) {
+          background: #7958ff;
+        }
+        &:nth-child(2) {
+          background: #7bb265;
+        }
+        &:nth-child(3) {
+          background: #d29b9b;
+        }
+      }
+
+      .group {
+        display: flex;
+        gap: 20px;
+        padding-right: 20px;
+        will-change: transform;
+        animation: scrolling 10s linear infinite;
+      }
+
+      @keyframes scrolling {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="carousel">
+      <div class="group">
+        <div class="card">A</div>
+        <div class="card">B</div>
+        <div class="card">C</div>
+      </div>
+      <div aria-hidden="true" class="group">
+        <div class="card">A</div>
+        <div class="card">B</div>
+        <div class="card">C</div>
+      </div>
+    </div>
+  </body>
+</html> 
