@@ -20,14 +20,17 @@
   <link rel="icon" href="{{site.baseurl}}/static/img/favicon.ico" />
   <link rel="apple-touch-icon" href="{{site.baseurl}}/static/img/logo.png" />
   <link rel="stylesheet" href="{{site.baseurl}}/static/css/common.css?t={{buildAt}}">
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/theme-dark.css?t={{buildAt}}">
+  <!-- Non-blocking for light theme; only blocks when dark scheme matches -->
+  <link rel="stylesheet" href="{{site.baseurl}}/static/css/theme-dark.css?t={{buildAt}}" media="(prefers-color-scheme: dark)">
   {%- if page.layout == "mypost" %}
   <link rel="stylesheet" href="{{site.baseurl}}/static/css/post.css?t={{buildAt}}">
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/code-dark.css?t={{buildAt}}">
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/code-light.css?t={{buildAt}}">
+  <link rel="stylesheet" href="{{site.baseurl}}/static/css/code-dark.css?t={{buildAt}}" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="{{site.baseurl}}/static/css/code-light.css?t={{buildAt}}" media="(prefers-color-scheme: light)">
   {%- endif %}
   {%- if page.layout == "page" %}
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/page.css?t={{buildAt}}">
+  <!-- Defer non-critical page styles to avoid render-blocking -->
+  <link rel="preload" as="style" href="{{site.baseurl}}/static/css/page.css?t={{buildAt}}" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{site.baseurl}}/static/css/page.css?t={{buildAt}}"></noscript>
   {%- endif %}
   <link rel="prefetch" href="{{site.baseurl}}/static/xml/search.xml?t={{ buildAt }}">
   <link rel="prefetch" href="{{site.baseurl}}/static/js/search.js?t={{ buildAt }}">

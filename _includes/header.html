@@ -1,5 +1,8 @@
 <header class="header">
-  <img class="logo" src="{{ site.baseurl }}/static/img/logo.jpg" alt="logo"/>
+  <picture>
+    <source type="image/avif" srcset="{{ site.baseurl }}/static/img/logo.avif">
+    <img class="logo" src="{{ site.baseurl }}/static/img/logo.jpg" alt="logo" width="40" height="40" decoding="async"/>
+  </picture>
   <nav class="menu">
     {% for menu in site.menu -%}
 
