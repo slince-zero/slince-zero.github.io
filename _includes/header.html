@@ -42,7 +42,7 @@
       {%- assign alt_hreflang = 'zh-CN' -%}
     {%- endif -%}
 
-    <a href="{{ site.baseurl }}{{ switch_path }}" rel="alternate" hreflang="{{ alt_hreflang }}" onclick="toggleLanguage()" class="hover-underline language-switch">
+    <a href="{{ site.baseurl }}{{ switch_path }}" rel="alternate" hreflang="{{ alt_hreflang }}" class="hover-underline language-switch" aria-label="Toggle language">
       <span class="lang-text">中文</span>
     </a>
   </nav>

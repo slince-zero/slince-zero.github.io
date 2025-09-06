@@ -54,25 +54,12 @@ function initLanguage() {
 // 切换语言
 function toggleLanguage() {
   const newLang = currentLang === 'zh-CN' ? 'en' : 'zh-CN';
-  
-  // 检查是否需要重定向
-  if (checkRedirect(newLang)) {
-    // 如果需要重定向，先保存新的语言设置
-    localStorage.setItem('blog_language', newLang);
-    return; // 重定向后会重新加载页面，不需要执行后续代码
-  }
-  
-  // 如果不需要重定向，正常切换语言
-  currentLang = newLang;
-  localStorage.setItem('blog_language', currentLang);
-  document.documentElement.lang = currentLang;
-  document.querySelector('meta[http-equiv="content-language"]').setAttribute('content', currentLang);
-  updateLanguageButton();
-  translatePage();
-  
-  // 触发自定义事件，通知语言变化
-  const event = new CustomEvent('languageChanged', { detail: { language: currentLang } });
-  window.dispatchEvent(event);
+
+  // 保存新的语言设置
+  localStorage.setItem('blog_language', newLang);
+
+  // 始终跳转到首页
+  window.location.href = '/';
 }
 
 // 更新语言切换按钮文本
@@ -130,5 +117,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // 检查是否需要重定向到正确的语言版本
   if (checkRedirect(currentLang)) {
     return; // 如果需要重定向，不需要执行后续初始化
+  }
+
+  // 绑定语言切换点击事件，避免使用内联 onclick 以兼容严格 CSP
+  const langLink = document.querySelector('a.language-switch');
+  if (langLink) {
+    langLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleLanguage();
+    }, true);
   }
 }); 
