@@ -15,7 +15,34 @@
 
       <a href="{{href}}" {{target}} class="hover-underline" data-i18n="menu.{{ menu.title }}">{{ menu.title }}</a>
     {% endfor -%}
-    <a href="javascript:void(0)" onclick="toggleLanguage()" class="hover-underline language-switch">
+
+    {%- comment -%}
+      语言切换链接需具备真实 href 以便被搜索引擎抓取。
+      根据当前页面为已知的中英文静态页，生成对应的可抓取链接；
+      其他页面回退到首页。
+    {%- endcomment -%}
+    {%- assign current_path = page.url | default: '/' -%}
+    {%- assign switch_path = '/' -%}
+    {%- if current_path == '/pages/about.html' -%}
+      {%- assign switch_path = '/pages/en/about.html' -%}
+    {%- elsif current_path == '/pages/en/about.html' -%}
+      {%- assign switch_path = '/pages/about.html' -%}
+    {%- elsif current_path == '/pages/links.html' -%}
+      {%- assign switch_path = '/pages/en/links.html' -%}
+    {%- elsif current_path == '/pages/en/links.html' -%}
+      {%- assign switch_path = '/pages/links.html' -%}
+    {%- elsif current_path == '/pages/search.html' -%}
+      {%- assign switch_path = '/pages/en/search.html' -%}
+    {%- elsif current_path == '/pages/en/search.html' -%}
+      {%- assign switch_path = '/pages/search.html' -%}
+    {%- endif -%}
+
+    {%- assign alt_hreflang = 'en' -%}
+    {%- if page.lang == 'en' or current_path contains '/en/' -%}
+      {%- assign alt_hreflang = 'zh-CN' -%}
+    {%- endif -%}
+
+    <a href="{{ site.baseurl }}{{ switch_path }}" rel="alternate" hreflang="{{ alt_hreflang }}" onclick="toggleLanguage()" class="hover-underline language-switch">
       <span class="lang-text">中文</span>
     </a>
   </nav>
