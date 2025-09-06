@@ -10,7 +10,8 @@
 }
 .page-post .subtitle {
   font-size: 12px;
-  color: #999999;
+  /* Improve contrast against white background */
+  color: #5a5a5a;
 }
 .page-post .post > * {
   margin: 18px 0;
