@@ -14,7 +14,7 @@ layout: null
   {%- for post in site.posts %}
   <url>
     <loc>{{ site.domainUrl }}{{ site.baseurl }}{{ post.url }}</loc>
-    <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+    <lastmod>{{ post.date | date: "%Y-%m-%d" }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

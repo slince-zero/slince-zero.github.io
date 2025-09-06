@@ -1,0 +1,20 @@
+# Jekyll build outputs
+_site/
+dist/
+
+# Jekyll caches and metadata
+.jekyll-cache/
+.sass-cache/
+.jekyll-metadata
+
+# Ruby/Bundler
+.bundle/
+vendor/
+
+# Node (in case of local tooling)
+node_modules/
+
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+*.log
