@@ -11,12 +11,16 @@
   display: flex;
   align-items: center;
   padding: 8px 0;
+  /* 预设最小高度以减少CLS */
+  min-height: 2.5em;
 }
 .list-post li .date {
   color: #666666;
   font-size: 14px;
   flex-shrink: 0;
   margin-right: 10px;
+  /* 预设宽度以减少CLS */
+  min-width: 80px;
 }
 .list-post li .title {
   width: 0;
@@ -28,6 +32,9 @@
 }
 .list-post li .title a {
   font-size: 15px;
+  /* 预设字体尺寸以减少CLS */
+  min-height: 1.2em;
+  line-height: 1.2;
 }
 .list-post li .categories {
   flex-shrink: 0;

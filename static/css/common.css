@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Consolas';
-  font-display: fallback;
+  font-display: swap;
   src: url('../font/consola.ttf');
 }
 
@@ -16,6 +16,8 @@ html {
   -moz-osx-font-smoothing: grayscale;
   transition: all 500ms ease;
   font-family: Consolas, 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
+  /* 减少字体加载时的布局偏移 */
+  font-size-adjust: 0.5;
 }
 body {
   max-width: 680px;
