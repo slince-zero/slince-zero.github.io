@@ -1,6 +1,8 @@
 {%- assign buildAt = site.time | date: "%Y%m%d%H%M%S" -%}
 <script type="text/javascript" src="{{site.baseurl}}/static/js/blog.js?t={{ buildAt }}"></script>
+{%- if site.enableSearch == true -%}
 <script type="text/javascript" src="{{site.baseurl}}/static/js/search.js?t={{ buildAt }}"></script>
+{%- endif -%}
 
 {%- if site.extClickEffect %}
 <!-- 点击页面文字冒出特效 -->

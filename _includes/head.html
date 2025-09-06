@@ -22,6 +22,8 @@
   <link rel="stylesheet" href="{{site.baseurl}}/static/css/common.css?t={{buildAt}}">
   <!-- Non-blocking for light theme; only blocks when dark scheme matches -->
   <link rel="stylesheet" href="{{site.baseurl}}/static/css/theme-dark.css?t={{buildAt}}" media="(prefers-color-scheme: dark)">
+  <!-- Preload font to reduce CLS -->
+  <link rel="preload" href="{{site.baseurl}}/static/font/consola.ttf" as="font" type="font/ttf" crossorigin>
   {%- if page.layout == "mypost" %}
   <link rel="stylesheet" href="{{site.baseurl}}/static/css/post.css?t={{buildAt}}">
   <link rel="stylesheet" href="{{site.baseurl}}/static/css/code-dark.css?t={{buildAt}}" media="(prefers-color-scheme: dark)">
@@ -32,8 +34,10 @@
   <link rel="preload" as="style" href="{{site.baseurl}}/static/css/page.css?t={{buildAt}}" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="{{site.baseurl}}/static/css/page.css?t={{buildAt}}"></noscript>
   {%- endif %}
+  {%- if site.enableSearch == true %}
   <link rel="prefetch" href="{{site.baseurl}}/static/xml/search.xml?t={{ buildAt }}">
   <link rel="prefetch" href="{{site.baseurl}}/static/js/search.js?t={{ buildAt }}">
+  {%- endif %}
   <script src="{{site.baseurl}}/static/js/translations.js?t={{buildAt}}" defer></script>
   <script src="{{site.baseurl}}/static/js/language.js?t={{buildAt}}" defer></script>
   <script>
@@ -46,6 +50,21 @@
         document.documentElement.className = this.darkTheme ? 'dark': '';
         document.querySelector('meta[name=theme-color]').setAttribute('content', this.darkTheme ? '#2D2E32': '#FFFFFF');
       }
+    }
+
+    // 字体加载检测以减少CLS
+    document.documentElement.classList.add('font-loading');
+    if ('fonts' in document) {
+      document.fonts.ready.then(function() {
+        document.documentElement.classList.remove('font-loading');
+        document.documentElement.classList.add('font-loaded');
+      });
+    } else {
+      // 回退方案：延迟移除loading类
+      setTimeout(function() {
+        document.documentElement.classList.remove('font-loading');
+        document.documentElement.classList.add('font-loaded');
+      }, 3000);
     }
     if (sessionStorage.darkTheme !== undefined) {
       blog.setDarkTheme(sessionStorage.darkTheme === 'true'); // 记忆值，单个窗口内有效
