@@ -20,14 +20,16 @@
   <link rel="icon" href="{{site.baseurl}}/static/img/favicon.ico" />
   <link rel="apple-touch-icon" href="{{site.baseurl}}/static/img/logo.png" />
   <link rel="stylesheet" href="{{site.baseurl}}/static/css/common.css?t={{buildAt}}">
-  <!-- Non-blocking for light theme; only blocks when dark scheme matches -->
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/theme-dark.css?t={{buildAt}}" media="(prefers-color-scheme: dark)">
+  <!-- Load dark theme CSS non‑blocking so manual toggle works even if system is light -->
+  <link rel="preload" as="style" href="{{site.baseurl}}/static/css/theme-dark.css?t={{buildAt}}" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{site.baseurl}}/static/css/theme-dark.css?t={{buildAt}}"></noscript>
   <!-- Preload font to reduce CLS -->
   <link rel="preload" href="{{site.baseurl}}/static/font/consola.ttf" as="font" type="font/ttf" crossorigin>
   {%- if page.layout == "mypost" %}
   <link rel="stylesheet" href="{{site.baseurl}}/static/css/post.css?t={{buildAt}}">
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/code-dark.css?t={{buildAt}}" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/code-light.css?t={{buildAt}}" media="(prefers-color-scheme: light)">
+  <link rel="preload" as="style" href="{{site.baseurl}}/static/css/code-dark.css?t={{buildAt}}" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{site.baseurl}}/static/css/code-dark.css?t={{buildAt}}"></noscript>
+  <link rel="stylesheet" href="{{site.baseurl}}/static/css/code-light.css?t={{buildAt}}">
   {%- endif %}
   {%- if page.layout == "page" %}
   <!-- Defer non-critical page styles to avoid render-blocking -->
