@@ -40,7 +40,7 @@ greet("World")
 
 ### Image Example
 
-![Sample Image]({{site.baseurl}}/static/img/logo.jpg)
+![Sample Image]({{site.baseurl}}/static/img/logo.png)
 
 ### Quote Example
 
