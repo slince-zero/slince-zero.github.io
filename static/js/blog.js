@@ -486,3 +486,47 @@ blog.addLoadEvent(function () {
 
   blog.addLoadEvent(toggleSnow)
 })()
+
+// 圣诞帽 - 仅暗色模式 + 圣诞前后一周 (12/18 - 1/1)
+;(function () {
+  function isChristmasSeason() {
+    var now = new Date()
+    var m = now.getMonth(), d = now.getDate()
+    return (m === 11 && d >= 18) || (m === 0 && d <= 1)
+  }
+
+  if (!isChristmasSeason()) return
+
+  var hatEl = null
+
+  function createHat() {
+    if (hatEl) return
+    var logo = document.querySelector('.header picture')
+    if (!logo) return
+    logo.style.position = 'relative'
+    hatEl = document.createElement('div')
+    hatEl.className = 'christmas-hat'
+    hatEl.textContent = '⛄'
+    hatEl.style.cssText = 'position:absolute;top:-12px;right:-6px;font-size:20px;transform:rotate(20deg);z-index:10'
+    logo.appendChild(hatEl)
+  }
+
+  function removeHat() {
+    if (hatEl) {
+      hatEl.remove()
+      hatEl = null
+    }
+  }
+
+  function toggleHat() {
+    blog.darkTheme ? createHat() : removeHat()
+  }
+
+  var origSetDark = blog.setDarkTheme
+  blog.setDarkTheme = function (dark) {
+    origSetDark.call(this, dark)
+    toggleHat()
+  }
+
+  blog.addLoadEvent(toggleHat)
+})()
