@@ -435,3 +435,54 @@ blog.addLoadEvent(function () {
     })
   }
 })
+
+// 下雪特效 - 仅暗色模式
+;(function () {
+  var snowContainer = null
+  var SNOW_COUNT = 35
+
+  function createSnow() {
+    if (snowContainer) return
+    snowContainer = document.createElement('div')
+    snowContainer.className = 'snow-container'
+    var css = document.createElement('style')
+    css.textContent = [
+      '.snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:9999}',
+      '.snowflake{position:absolute;top:-10px;color:#fff;opacity:.8;font-size:10px;animation:fall linear infinite}',
+      '@keyframes fall{to{transform:translateY(100vh)}}'
+    ].join('')
+    document.head.appendChild(css)
+    for (var i = 0; i < SNOW_COUNT; i++) {
+      var flake = document.createElement('div')
+      flake.className = 'snowflake'
+      flake.textContent = '❄'
+      flake.style.left = Math.random() * 100 + '%'
+      flake.style.fontSize = (Math.random() * 10 + 8) + 'px'
+      flake.style.opacity = Math.random() * 0.6 + 0.4
+      var duration = Math.random() * 5 + 8
+      flake.style.animationDuration = duration + 's'
+      flake.style.animationDelay = -(Math.random() * duration) + 's'
+      snowContainer.appendChild(flake)
+    }
+    document.body.appendChild(snowContainer)
+  }
+
+  function removeSnow() {
+    if (snowContainer) {
+      snowContainer.remove()
+      snowContainer = null
+    }
+  }
+
+  function toggleSnow() {
+    blog.darkTheme ? createSnow() : removeSnow()
+  }
+
+  var origSetDarkTheme = blog.setDarkTheme
+  blog.setDarkTheme = function (dark) {
+    origSetDarkTheme.call(this, dark)
+    toggleSnow()
+  }
+
+  blog.addLoadEvent(toggleSnow)
+})()
